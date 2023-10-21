@@ -1,0 +1,32 @@
+{%  extends "base.html" %}
+
+{% block title %}
+MERCODONA
+{%  endblock %}
+
+
+
+{% block style %}
+    <link  rel="stylesheet" href="/static/CSS/index.css"
+{%  endblock %}
+
+{%  block content %}
+    {%  load static %}
+    <H1 class="text-center">Vous êtes déconnecté</H1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <a href="/mercadona" style="font-size: X-large">Catalogue des produits</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <a class="" href="/mercadona/connect" style="font-size: x-large">Se connecter</a>
+    </div>
+
+
+
+{%  endblock %}

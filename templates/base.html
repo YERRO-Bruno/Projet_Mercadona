@@ -46,9 +46,9 @@
         </script>
     {% endif %}
 
-    <div class="d-flex flex-row header justify-content-between">
-        <span class="logo col-1 align-self-center">MERCADONA</span>
-        <div class="mi-header col-10 d-flex flex-column align-center" >
+    <div class="d-flex border rounded-pill header justify-content-between">
+        <span class="logo col-2 align-self-center">MERCADONA</span>
+        <div class="mi-header col-8 d-flex flex-column align-center" >
             <span class="maxime mx-auto align-self-center">Tous les vêtements du monde, à prix mini</span>
             <div class="align-self-center">
                 <select class="cat-filter" id="category-filter">
@@ -59,7 +59,13 @@
                 </input>
             </div>
         </div>
-        <div class="col-1">
+        <div class="col-2">
+            <div id="logged">
+                <br>
+                <div class="logedd  connect ">
+                    <a class="conimg float-right" href="/mercadona/logout">Déconnexion</a>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -69,5 +75,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <script >
+        //suppression lien Déconnexion si utilisateur pas connecté
+        var vlogin="{{ vlogin }}";
+        if (vlogin !="logged") {
+            const divlogged = document.getElementById("logged");
+            divlogged.remove()
+        }
+     </script>
 </body>
 </html>

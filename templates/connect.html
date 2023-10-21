@@ -1,0 +1,53 @@
+{%  extends "base.html" %}
+
+{% block title %}
+MERCODONA
+{%  endblock %}
+
+{% block style %}
+    {%  load static %}
+    <link  rel="stylesheet" href="/static/CSS/index.css">
+    <link rel="stylesheet" href="/static/CSS/connect.css">
+{%  endblock %}
+
+{%  block content %}
+
+    <div >
+        <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
+            Si vous n'êtes pas administrateur du site,
+            <a href="/mercadona">veuillez fermer ce formulaire.</a>
+            <br>
+            Vous êtes administrateur et n'avez pas encore de compte,
+            <a href="/mercadona/register">Inscrivez-vous.</a>
+        </h5>
+        <h1 class="text-center">Inscription</h1>
+        <h4 class="texterror text-center" style="color: red">{{ errorLogin }}</h4>
+        <form  class="justify-content-center" method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-4"></div>
+                <p class="col-4 row">
+                    <label class="col-5" for="id_email">Pseudonyme:</label>
+                    <input class="col-7" type="text" name="email" maxlength="150" id="id_email" requred>
+                </p>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <p class="col-4 row">
+                    <label class="col-5" for="id_password">Password:</label>
+                    <input class="col-7" type="password" name="password" maxlength="64" id="id_password"
+                           title="Must contain at least one number and one uppercase and lowercase letter, and at least
+                            8 or more characters" required>
+                </p>
+                <div class="col-4"></div>
+                <div class="col-5"></div>
+                <div class="col-3">
+                    <a href="/mercadona"><button type="button">Annuler</button></a>
+                    <button class="mx-3" type="submit">Se connecter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{%  endblock %}
+

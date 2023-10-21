@@ -79,7 +79,7 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "DB_mercadona",
+        "NAME": "Mercadona_DB",
         "USER": "postgres",
         "PASSWORD": "superposgres",
         "HOST": "127.0.0.1",
@@ -87,6 +87,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'mercadona.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
