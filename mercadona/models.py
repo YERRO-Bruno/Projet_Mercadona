@@ -1,3 +1,11 @@
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projet_mercadona.settings")
+
+import django
+# django.setup()
+
+from django.core.management import call_command
+
 import string, decimal
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -5,10 +13,8 @@ from django.utils import timezone
 from .managers import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.db import DatabaseError
-from django.core.exceptions import ValidationError
-from decimal import Decimal
+from decimal import Decimal, DecimalException
 from datetime import date
-from django.core.validators import validate_email
 
 
 class Category(models.Model):
@@ -25,12 +31,12 @@ class Category(models.Model):
         return {'id': self.id, 'label': self.label}
 
     def create_category(self, label: string):
-        if label == "" or label is None:
-            return {'obj': None, 'msg': "Categorie inexistante"}
-        categories = Category.objects.filter(label=label)
-        # if categories.exists:
-        #     return {'obj': None, 'msg': "Catégorie déjà existante"}
         try:
+            if label == "" or label is None:
+                return {'obj': None, 'msg': "Categorie inexistante"}
+            category_created_yet = Category.objects.filter(label=label).first()
+            if category_created_yet:
+                return {'obj': None, 'msg': "Catégorie déjà existante"}
             category = Category()
             category.label = label
             category.save()
@@ -44,7 +50,7 @@ class Category(models.Model):
             if category:
                 category.label = label
                 category.save()
-                return category
+                return {'obj': category, 'msg': "Catégorie non trouvée"}
             else:
                 return {'obj': None, 'msg': "Catégorie non trouvée"}
         except (Category.DoesNotExist, DatabaseError):
@@ -75,91 +81,101 @@ class Product(models.Model):
     def __str__(self):
         return str(self.product_label)
 
-    def create_product(self, label: string, description: string, category_id, picture_file: string,
-                       price: decimal, reduction: decimal = 0,
-                       begin_promo = date(2000,12,25), end_promo=date(200,12,25)):
-
-            if label == "" or label is None:
+    def create_product(self, product_label: string, description: string, category_id, picture_file: string, price: decimal,
+                       reduction: decimal = 0, begin_promo=date(2000, 12, 25), end_promo=date(2000, 12, 25)):
+        try:
+            if product_label == "" or product_label is None:
                 return {'obj': None, 'msg': "label inexistant"}
             if description == "" or description is None:
                 return {'obj': None, 'msg': "description inexistante"}
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
+            if category_id =="" or category_id is None:
+                return {'obj': None, 'msg': "Categorie introuvable"}
             category = Category.objects.filter(id=category_id).first()
-            if category is None:
+            if price == "" or price is None:
+                return {'obj': None, 'msg': "prix inexistante"}
+            if not isinstance(Decimal(price), Decimal):
+                return {'obj': None, 'msg': "prix non décimal"}
+            if reduction is not None:
+                if not isinstance(Decimal(reduction), Decimal):
+                    return {'obj': None, 'msg': "réduction non décimal"}
+            if not isinstance(begin_promo, date):
+                begin_promo = date(2000, 12, 25)
+            if not isinstance(end_promo, date):
+                end_promo = date(2000, 12, 25)
+            product = Product()
+            product.product_label = product_label
+            product.description = description
+            product.picture_file = picture_file
+            product.category_id = category_id
+            product.price = price
+            product.reduction = reduction
+            product.begin_promo = begin_promo
+            product.end_promo = end_promo
+            product.save()
+            return {'obj': product, 'msg': "Created"}
+        except DatabaseError:
+            return {'obj': None, 'msg': category.label}
+        except decimal.DecimalException:
+            return {'obj': None, 'msg': DecimalException}
+
+
+    def update_product(self, product_id, product_label: string, description: string, category, picture_file: string,
+                       price: decimal, reduction: decimal = 0,
+                       begin_promo=date(2000, 12, 25), end_promo=date(2000, 12, 25)):
+        try:
+            if product_id == "" or product_id is None:
+                return {'obj': None, 'msg': "product_id inexistant"}
+            if not isinstance(Decimal(product_id), Decimal):
+                return {'obj': None, 'msg': "product_id non décimal"}
+            product = Product.objects.filter(id=product_id).first()
+            if product:
+                if product_label == "" or product_label is None:
+                    return {'obj': None, 'msg': "label inexistant"}
+            else:
+                return {'obj': None, 'msg': "produit inexistant"}
+            if description == "" or description is None:
+                return {'obj': None, 'msg': "description inexistante"}
+            if picture_file == "" or picture_file is None:
+                return {'obj': None, 'msg': "image inexistante"}
+            categoryc = Category.objects.filter(id=category.id).first()
+            if categoryc is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
             if price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
             if not isinstance(Decimal(price), Decimal):
                 return {'obj': None, 'msg': "prix non décimal"}
-            if not isinstance(Decimal(reduction), Decimal):
-                return {'obj': None, 'msg': "réduction non décimal"}
+            if reduction is not None:
+                if not isinstance(Decimal(reduction), Decimal):
+                    return {'obj': None, 'msg': "réduction non décimal"}
             if not isinstance(begin_promo, date):
                 return {'obj': None, 'msg': "date de debut n'est pas une date"}
             if not isinstance(end_promo, date):
                 return {'obj': None, 'msg': "date de fin n'est pas une date"}
-            try:
-                product = Product()
-                product.product_label = label
-                product.description = description
-                product.picture_file = picture_file
-                product.category = category
-                product.price = price
-                # product.reduction = reduction
-                # product.begin_promo = begin_promo
-                # product.end_promo = end_promo
-                product.save()
-                return {'obj': product, 'msg': "Created"}
-            except DatabaseError:
-                return {'obj': None, 'msg': category[0].label}
-
-    def update_product(self, product_id, label: string, description: string, category_id, picture_file: string,
-                       price: decimal, reduction: decimal = 0,
-                       begin_promo = date(2000,12,25), end_promo=date(200,12,25)):
-        try:
-            if product_id =="" or product_id is None:
-                return {'obj': None, 'msg': "product_id inexistant"}
-            if not isinstance(Decimal(product_id), Decimal):
-                return {'obj': None, 'msg': "product_id non décimal"}
-            product = Product.objects.get(id=product_id)
-            if product:
-                if label == "" or label is None:
-                    return {'obj': None, 'msg': "label inexistant"}
-                if description == "" or description is None:
-                    return {'obj': None, 'msg': "description inexistante"}
-                if picture_file == "" or picture_file is None:
-                    return {'obj': None, 'msg': "image inexistante"}
-                category = Category.objects.filter(id=category_id).first()
-                if category is None:
-                    return {'obj': None, 'msg': "Categorie introuvable"}
-                if price is None:
-                    return {'obj': None, 'msg': "prix inexistante"}
-                if not isinstance(Decimal(price), Decimal):
-                    return {'obj': None, 'msg': "prix non décimal"}
-                if not isinstance(Decimal(reduction), Decimal):
-                    return {'obj': None, 'msg': "réduction non décimal"}
-                if not isinstance(begin_promo, date):
-                    return {'obj': None, 'msg': "date de debut n'est pas une date"}
-                if not isinstance(end_promo, date):
-                    return {'obj': None, 'msg': "date de fin n'est pas une date"}
-                product = Product()
-                product.product_label = label
-                product.description = description
-                product.picture_file = picture_file
-                product.price = price
-                product.reduction = reduction
-                product.begin_promo = begin_promo
-                product.end_promo = end_promo
-                product.save()
-                return {'obj': product, 'msg': "Updated"}
-            else:
-                return {'obj': None, 'msg': "PB base de données"}
+            product = Product()
+            product.id = product_id
+            product.product_label = product_label
+            product.description = description
+            product.category = categoryc
+            product.picture_file = picture_file
+            product.price = price
+            product.reduction = reduction
+            product.begin_promo = begin_promo
+            product.end_promo = end_promo
+            product.save()
+            return {'obj': product, 'msg': "Updated"}
+            # else:
+            #     return {'obj': None, 'msg': "PB base de données"}
         except DatabaseError:
             return {'obj': None, 'msg': "PB base de données"}
 
+        except decimal.DecimalException:
+            return {'obj': None, 'msg': DecimalException}
+
     def delete_product(self, product_id):
         try:
-            product = Product.objects.get(id=product_id)
+            product = Product.objects.filter(id=product_id).first()
             if product:
                 product.delete()
                 return {'obj': True, 'msg': "Produit supprimée"}

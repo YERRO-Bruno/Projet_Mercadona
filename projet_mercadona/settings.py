@@ -79,7 +79,7 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "Mercadona_DB",
+        "NAME": "Mercadona_DBl",
         "USER": "postgres",
         "PASSWORD": "superposgres",
         "HOST": "127.0.0.1",
