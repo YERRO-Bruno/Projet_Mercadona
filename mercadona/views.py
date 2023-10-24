@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .serializers import ProductSerializer, CategorySerializer
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-
+from .managers import UserManager
 
 def index(request):
     context = {}
@@ -55,7 +55,9 @@ def register(request):
         # recherche du code de verification pour l'email de l'administrateur à créer
         for i in range(len(verif_admins)):
             if (verif_admins[i].email == emailx and verif_admins[i].verification == verificationx):
-                userx = User.objects.create_user(email=emailx, password=passwordx)
+                # userx = User.objects.create_user(email=emailx, password=passwordx)
+                # userx = UserManager()
+                userx=User.objects.create_user(email=emailx,password=passwordx, role="admin")
                 # suppression de l'enregistrememnt du code de verification et de l'email associée
                 verif_admins[i].delete()
                 # connexion

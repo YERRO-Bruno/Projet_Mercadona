@@ -1,5 +1,8 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from django.db import models
+from django.db.utils import DatabaseError
+
 
 
 class UserManager(BaseUserManager):
@@ -16,6 +19,7 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, password=password, **extra_fields)
         user.set_password(password)
+        # user.role = "admin"
         user.save()
         return user
 
