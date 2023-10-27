@@ -1,4 +1,3 @@
-alert("index")
 document.addEventListener("DOMContentLoaded", function () {
     //selecteur de catégories
     const categoryFilter = document.getElementById("category-filter");

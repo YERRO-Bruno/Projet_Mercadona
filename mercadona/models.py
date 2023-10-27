@@ -1,8 +1,8 @@
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projet_mercadona.settings")
+from datetime import datetime
+from django.db import models
 
-import django
-# django.setup()
 
 from django.core.management import call_command
 
@@ -78,11 +78,14 @@ class Product(models.Model):
     begin_promo = models.DateField(null=True)
     end_promo = models.DateField(null=True)
 
+    class Meta:
+        ordering = ["-picture_file"]
+
     def __str__(self):
         return str(self.product_label)
 
     def create_product(self, product_label: string, description: string, category_id, picture_file: string, price: decimal,
-                       reduction: decimal = 0, begin_promo=date(2000, 12, 25), end_promo=date(2000, 12, 25)):
+                       reduction: decimal, begin_promo, end_promo):
         try:
             if product_label == "" or product_label is None:
                 return {'obj': None, 'msg': "label inexistant"}
@@ -92,23 +95,34 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "image inexistante"}
             if category_id =="" or category_id is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
-            category = Category.objects.filter(id=category_id).first()
+            categoryc = Category.objects.filter(label=category_id).first()
             if price == "" or price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
             if not isinstance(Decimal(price), Decimal):
                 return {'obj': None, 'msg': "prix non décimal"}
+            if reduction == "" or reduction is None:
+               reduction = 0
             if reduction is not None:
                 if not isinstance(Decimal(reduction), Decimal):
                     return {'obj': None, 'msg': "réduction non décimal"}
+            formdt = "%Y-%m-%d"
+            if begin_promo == "" or begin_promo is None:
+                begin_promo = date(2000, 12, 25)
+            if begin_promo is not None:
+                begin_promo = datetime.strptime(str(begin_promo), formdt)
             if not isinstance(begin_promo, date):
                 begin_promo = date(2000, 12, 25)
+            if end_promo == "" or end_promo is None:
+                end_promo = date(2000, 12, 25)
+            if end_promo is not None:
+                begin_promo = datetime.strptime(str(end_promo), formdt)
             if not isinstance(end_promo, date):
                 end_promo = date(2000, 12, 25)
             product = Product()
             product.product_label = product_label
             product.description = description
             product.picture_file = picture_file
-            product.category_id = category_id
+            product.category_id = categoryc.id
             product.price = price
             product.reduction = reduction
             product.begin_promo = begin_promo
@@ -116,7 +130,7 @@ class Product(models.Model):
             product.save()
             return {'obj': product, 'msg': "Created"}
         except DatabaseError:
-            return {'obj': None, 'msg': category.label}
+            return {'obj': None, 'msg': "error DATABASE"}
         except decimal.DecimalException:
             return {'obj': None, 'msg': DecimalException}
 
@@ -125,6 +139,7 @@ class Product(models.Model):
                        price: decimal, reduction: decimal = 0,
                        begin_promo=date(2000, 12, 25), end_promo=date(2000, 12, 25)):
         try:
+            print("date "+str(begin_promo))
             if product_id == "" or product_id is None:
                 return {'obj': None, 'msg': "product_id inexistant"}
             if not isinstance(Decimal(product_id), Decimal):
@@ -139,20 +154,31 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "description inexistante"}
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
-            categoryc = Category.objects.filter(id=category.id).first()
+            categoryc = Category.objects.filter(label=category).first()
             if categoryc is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
             if price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
             if not isinstance(Decimal(price), Decimal):
                 return {'obj': None, 'msg': "prix non décimal"}
+            if reduction == "" or reduction is None:
+                reduction = 0
             if reduction is not None:
                 if not isinstance(Decimal(reduction), Decimal):
                     return {'obj': None, 'msg': "réduction non décimal"}
+            formdt = "%Y-%m-%d"
+            if begin_promo == "" or begin_promo is None:
+                begin_promo = date(2000, 12, 25)
+            if begin_promo is not None:
+                begin_promo = datetime.strptime(str(begin_promo), formdt)
             if not isinstance(begin_promo, date):
-                return {'obj': None, 'msg': "date de debut n'est pas une date"}
+                begin_promo = date(2000, 12, 25)
+            if end_promo == "" or end_promo is None:
+                end_promo = date(2000, 12, 25)
+            if end_promo is not None:
+                end_promo = datetime.strptime(str(end_promo), formdt)
             if not isinstance(end_promo, date):
-                return {'obj': None, 'msg': "date de fin n'est pas une date"}
+                end_promo = date(2000, 12, 25)
             product = Product()
             product.id = product_id
             product.product_label = product_label
@@ -172,7 +198,8 @@ class Product(models.Model):
 
         except decimal.DecimalException:
             return {'obj': None, 'msg': DecimalException}
-
+        except Exception:
+            return {'obj': None, 'msg': Exception}
     def delete_product(self, product_id):
         try:
             product = Product.objects.filter(id=product_id).first()

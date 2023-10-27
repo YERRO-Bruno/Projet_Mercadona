@@ -1,0 +1,79 @@
+/*.catbox {*/
+/*    display: none;*/
+/*}*/
+.labeladmin {
+    height: 80%;
+}
+.formulr {
+    width: 98%;
+    margin: 1em;
+    margin-top: 0;
+}
+#currentproduct {
+    width: 80%;
+}
+.changimage {
+    font-weight: bolder;
+}
+<<<<<<< HEAD
+=======
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
+label {
+    font-weight: bolder;
+}
+#id_label {
+    height: 4vh;
+    width: 100%;
+}
+#id_description {
+<<<<<<< HEAD
+    height: 10vh;
+=======
+    height: 20vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
+    width: 100%;
+}
+#id_category {
+    width: 80%;
+
+}
+#id_price, #id_price_reduc {
+    height: 5vh;
+    width: 100%;
+}
+
+<<<<<<< HEAD
+#currentimg {
+=======
+#currentimg, #currentimage {
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
+    height: 24vh;
+}
+.actions {
+    font-size: 2vh;
+    font-weight: bolder;
+}
+<<<<<<< HEAD
+.boximg {
+    position: relative;
+}
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
+.boxcategory {
+    width: 300%;
+;
+=======
+.boxcategory {
+
+;
+}
+.btncat {
+    height: 4vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
+}

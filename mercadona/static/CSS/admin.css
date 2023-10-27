@@ -1,0 +1,69 @@
+/*.catbox {*/
+/*    display: none;*/
+/*}*/
+.labeladmin {
+    height: 80%;
+}
+.formulr {
+    width: 98%;
+    margin: 1em;
+    margin-top: 0;
+}
+#currentproduct {
+    width: 80%;
+    height: 32vh;
+}
+.changimage {
+    font-weight: bolder;
+}
+.divimgcour {
+    position: relative;
+}
+.btnfile {
+    position: absolute;
+    height: 5vh;
+   top: 26vh;
+}
+label {
+    font-weight: bolder;
+}
+#id_label {
+    height: 4vh;
+    width: 100%;
+}
+#id_description {
+    height: 14Svh;
+    width: 100%;
+}
+#id_category {
+    width: 80%;
+
+}
+#id_price, #id_price_reduc {
+    height: 4vh;
+    width: 100%;
+}
+#id_promo {
+    height: 4vh;
+    width: 50%;
+}
+/*#currentimg, #currentimage {*/
+/*    height: 24vh;*/
+/*}*/
+.actions {
+    font-size: 2vh;
+    font-weight: bolder;
+}
+.boximg {
+    position: relative;
+}
+.btnfile {
+    position: absolute;
+    bottom: 0;
+}
+.boxcategory {
+    width: 300%;
+}
+.btncat {
+    height: 4vh;
+}

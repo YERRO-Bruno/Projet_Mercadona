@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from imagekitio import ImageKit
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%(q8pwi_wc@8rge_6f!sty(_jrvdbr(+)@f0n6f49=q+qnfpy4"
+# SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY='3yab^m1su%906rf#mws)xt=1u#!xdj+l_ahhjer#$(k_=e7lb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
+print(DEBUG)
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,16 +83,19 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "Mercadona_DBl",
-        "USER": "postgres",
-        "PASSWORD": "superposgres",
-        "HOST": "127.0.0.1",
-        "PORT": "5432"
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "Mercadona_DB",
+            "USER": "postgres",
+            "PASSWORD": "superposgres",
+            "HOST": "127.0.0.1",
+            "PORT": "5432"
+        }
     }
-}
+else:
+    DATABASE = os.getenv("DATABASE_URL")
 
 AUTH_USER_MODEL = 'mercadona.User'
 

@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     //selecteur de catégories
     const categoryFilter = document.getElementById("category-filter");
@@ -5,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const productList = document.getElementById("product-list");
     //Checkbox 'que les promotions'
     const promochek = document.getElementById("sel-promo");
+    const productsearch = document.getElementById("product_search")
+    const productsearchbutton = document.getElementById("product_search_button")
+    const cancelproductsearchbutton = document.getElementById("cancel_product_search_button")
 
     function fillCategories() {
         //remplissage du Sélécteur des catégorie (banniere) à partir du serializer /mercadona/api/categories
@@ -31,38 +35,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //affichage d'un produit
     function fillOneProduct(prodid, prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
-        //alert("oneproduct")
         if (categoryFilter.value === 'all' || prodcat === categoryFilter.value) {
-
-            if ((promochek.checked === false) || (promochek.checked === true && prodpromo == "promo")) {
-                var productHtml = `
-                    <div class="col-2" id="${prodid}">
-                        <div class="border border-dark vignette " id="XXXXXXX" >
-                            <ul class="ul-vignette border list-unstyled" >
-                                <li>
-                                    <div id="id_vignettexx">
-                                        <div class="text-center" id="id_vignette1">
-                                            <span>${prodlab}</span>
-                                        </div>
-                                        <div class="text-justify text-center" id="id_vignette2">
-                                            <span class="${prodpromo}">${prodprice}</span>
-                                        </div>
-                                        
-                                        <div class="mx-auto text-center" id="id_vignette3">
-                                            <img class="img_product" src="http://localhost:8080/${prodimg}">
+            if ((promochek.checked === false) || (promochek.checked === true && prodpromo === "promo")) {
+                if (productsearch === null || prodimg.startsWith(productsearch.value)) {
+                    var productHtml = `
+                        <div class="col-2" id="${prodid}">
+                            <p class="id_index" style="height: 1vh">${prodimg.split(".")[0]}</p>
+                            <div class="border border-dark vignette " id="XXXXXXX" >
+                                <ul class="ul-vignette border list-unstyled" >
+                                    <li
+                                        <div id="id_vignettexx">
+                                            <div class="text-center" id="id_vignette1">
+                                                <span>${prodlab}</span>
+                                            </div>
+                                            <div class="text-justify text-center" id="id_vignette2">
+                                                <span class="${prodpromo}">${prodprice}</span>
+                                            </div>
                                             
+                                            <div class="mx-auto text-center" id="id_vignette3">
+                                                <img class="img_product" src="http://ik.imagekit.io/kpvotazbj/${prodimg}">
+                                                
+                                            </div>
+                                            <div class="descript" id="id_vignette4">
+                                                <span>${proddsc}</span>
+                                            </div>
                                         </div>
-                                        <div class="descript" id="id_vignette4">
-                                            <span>${proddsc}</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     `;
+                }
+
                 //display new current product
                 $(".gallery").append(productHtml);
+                //Indexs enlevé pour le site index (laissé pour l'administration)
+                if (productsearch === null) {
+                    const prodindex = document.querySelectorAll(".id_index")
+                    prodindex.forEach(function (ind) {
+                        ind.remove()
+                    })
+                }
             }
         }
     }
@@ -121,6 +134,17 @@ document.addEventListener("DOMContentLoaded", function () {
         fillProducts();
     });
 
-    // execution Gallerie
-    fillProducts()
+    //pour la page administration ecoute sur le champ recherce catalogue produits
+    if (productsearch === null) {
+    } else {
+        productsearchbutton.addEventListener('click', function () {
+            fillProducts();
+        })
+        cancelproductsearchbutton.addEventListener('click', function () {
+            productsearch.value = "";
+            fillProducts();
+        })
+    }
+        // execution Gallerie
+    fillProducts();
 })

@@ -1,0 +1,147 @@
+{%  extends "base.html" %}
+
+{% block title %}
+MERCADONA-admin
+{%  endblock %}
+
+{% block style %}
+    <link  rel="stylesheet" href="/static/CSS/index.css">
+    <link rel="stylesheet" href="/static/CSS/admin.css">
+{%  endblock %}
+
+{%  block content %}
+    {%  load static %}
+    <h4 class="col-12 labeladmin text-center m-0">ADMINISTRATION</h4>
+    <h5 style="color: red">{{ errorline }}</h5>
+    <div class="formulr  m-0 ml-5 " id="prodbox" style="width: 100%">
+
+        <form class="row currentproduct border border-primary m-0" id="currentproduct" style="width: 95%" method="post">
+            {% csrf_token %}
+            <div class="boximg col-2 mb-1">
+                <input class="prodid" id="id_prodid" name="prodid" value="{{ prodid }}" type="hidden" >
+                <input class="fileimage" id="id_fileimage" name="fileimage" value="{{ fileimage }}" type="hidden" >
+                <div class="divimgcour list-unstyled row justify-content-center">
+                    <ul class="imgcour col-12 row justify-content-center" id="imgcour">
+
+                    </ul>
+
+                    <button class="btnfile col-8 " type="submit" id="imageInput">Choisir image</button>
+                </div>
+            </div>
+            <ul class="col-3 list-unstyled">
+                <div class="">
+                    <label class="" for="id_label">Label:</label>
+                    <input class="" type="text" name="label" maxlength="64" id="id_label" value="{{ label }}">
+                </div>
+                <div class="">
+                    <label class="" for="id_description">Description:</label>
+                    <textarea class="" name="description" maxlength="256" id="id_description"
+                    value="{{ description }}"></textarea>
+                </div>
+                <div>
+                    <select class="categ" name="categ" id="id_category">
+
+                    </select>
+                </div>
+            </ul>
+            <ul class="col-2 list-unstyled">
+                <div class="">
+                    <label class="" for="id_price">Prix:</label>
+                    <input class="" type="text"  name="price" id="id_price" value="{{ price }}">
+                </div>
+                <div class="">
+                    <label class="" for="id_price_reduc">Prix réduit:</label>
+                    <input class="" type="text"  name="price_reduc" id="id_price_reduc">
+                </div>
+                <div class="">
+                    <label class="mt-2" for="id_promo">Promo:</label>
+                    <input class="" type="number" pattern="^\d*(\.\d{0,2})?$" name="promo"
+                           id="id_promo" value="{{ promo }}">
+                </div>
+                <div >
+                    <label class="" for="id_begin">Début:</label>
+                    <input class="" type="date" name="begin" id="id_begin" value="{{ begin }}">
+                </div>
+                <div>
+                    <label class="" for="id_end">Début:</label>
+                    <input class="" type="date" name="end" id="id_end" value="{{ end }}">
+                </div>
+            </ul>
+            <ul class="col-2 list-unstyled">
+                <div class="col-12 actions border border-primary mt-4" style="width: 12vw; height: 22vh">
+                    <H5 class="text-center">Produits</H5>
+                    <div>
+                        <button class="ml-1" style="width:140px" type="submit" value="new" name="BTN" >Ajouter</button>
+                    </div>
+                    <div>
+                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="updat" name="BTN" >Modifier</button>
+                    </div>
+                    <div>
+                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="suppr" name="BTN" >Supprimer</button>
+                    </div>
+                    <div>
+                        <button class="mt-1 ml-1" style="width:140px" type="submit" id="btnraz" name="action" value="raz">Effacer les champs</button>
+                    </div>
+                </div>
+            </ul>
+            <ul class="col-2">
+                 <div class="boxcategory row justify-content-center border border-primary mt-4 " style="width: 22vw; height: 22vh">
+                     <H5 class="">Categories</H5>
+                     <div class="row">
+                         <div class="m-0 col-5" >
+                             <button class="m-1" style="width:120px" value="addcat" type="submit" name="BTN">Ajouter</button>
+                             <button class="m-1" style="width:120px" value="updcat" type="submit" name="BTN">Modifier</button>
+                             <button class="m-1" style="width:120px" value="delcat" type="submit" name="BTN">Supprimer</button>
+                         </div>
+                         <div class="m-0 col-5" >
+
+                             <input class="mt-1" name="addcat" maxlength="64" id="id_addcat" style="width: 160Px"></input>
+                             <input class="mt-2" name="updcat" maxlength="64" id="id_updcat" style="width: 160Px"
+                                    value="{{ categ }}"></input>
+                             <P class="mt-2" id="id_delcat">{{ categ }}</P>
+                         </div>
+                     </div>
+                </div>
+            </ul>
+        </form>
+    </div>
+    <div id="id_catalog_products">
+        <div class="row ml-2" style="height: 4vh;width: 99%; color: yellow; background-color: red">
+            <p class="col-1">CATALOGUE PRODUITS</p>
+            <div class="col-3"></div>
+            <div class="row justify-content-center col-4">
+                <label for="site-search" style="color: white">Index(AAAA-JJJ-n):</label>
+                <input type="search" id="product_search" value="" name="q" style="height: 4vh"/>
+                <button id="cancel_product_search_button" style="height: 4vh">X</button>
+                <button id="product_search_button" style="height: 4vh">Chercher</button>
+            </div>
+        </div>
+        <ul class="gallery col-12 row ml-2" id="product-list">
+
+        </ul>
+    </div>
+    <div id="id_catalog_pictures">
+        <div class="row justify-content-between ml-2" style="height: 4vh;width: 99%; color: yellow; background-color: red">
+            <P>CATALOGUE PHOTOS</P>
+            <div class="row justify-content-center">
+                <label for="site-search" style="color: white">Index(AAAA-JJJ-n):</label>
+                <input type="search" id="picture_search" name="q" style="height: 4vh"/>
+                <button id="cancel_picture_search_button" style="height: 4vh">X</button>
+                <button id="picture_search_button" style="height: 4vh">Chercher</button>
+            </div>
+            <a id="actionprouct" href="" style="color: black; height: 4vh">Retour au catalogue des produits</a>
+        </div>
+        <ul class="imagekit col-12 row " id="picture-list">
+
+        </ul>
+    </div>
+    <script>
+        const index = false
+        {#const listimage = JSON.parse("{{ listimg|safe|escapejs }}")#}
+        const imgcur = "{{ fileimage|safe|escapejs }}"
+        const desc = "{{ description }}"
+    </script>S
+    <script src="/static/JS/index.js"></script>
+    <script src="/static/JS/admin.js"></script>
+
+{%  endblock %}

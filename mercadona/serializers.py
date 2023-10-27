@@ -1,5 +1,8 @@
+import ordering as ordering
+
 from .models import Product, Category
 from rest_framework import serializers
+
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -13,5 +16,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'product_label', 'description', 'category', 'picture_file', 'price', 'reduction', 'begin_promo',
+        fields = ['id', 'description', 'product_label', 'category', 'picture_file', 'price', 'reduction', 'begin_promo',
                   'end_promo']
+        ordering = ["picture_file"]
+
+
