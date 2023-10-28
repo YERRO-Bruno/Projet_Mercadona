@@ -5,14 +5,14 @@ from .serializers import ProductSerializer, CategorySerializer
 from django.contrib.auth import authenticate, login, logout
 from django.template.context_processors import csrf
 from django.contrib import messages
-import django_filters
-from django_filters.rest_framework import DjangoFilterBackend
+from projet_mercadona.settings import IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL_ENDPOINT
 from imagekitio import ImageKit
 from django.http import JsonResponse
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
-import json
+import bcrypt
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+
+global recipient_email
 
 
 def index(request):
@@ -54,23 +54,52 @@ def loginUser(request):
     return render(request, "login.html", context)
 
 
+def preregister(request):
+    if request.method == 'POST':
+        emailx = request.POST['email']
+        verifadmins = VerifAdmin.objects.all()
+        for verifadmin in verifadmins:
+            if verifadmin.email == emailx:
+                original_code = get_random_string(length=8)
+                salt = bcrypt.gensalt()
+                crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
+                hash_verif = crypted_code.decode('utf-8')
+                verifadmin.verification = hash_verif
+                verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
+                global recipient_email
+                recipient_email = emailx
+                mail_subject = "Code de verification pour l'inscription à MERCADONA"
+                mail_message = "bonjour, \n"
+                mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                                              " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
+                mail_message = mail_message + "/n"
+                mail_message = mail_message + original_code
+                mail_message = mail_message + "/n"
+                mail_message = mail_message + "Cordialement"
+                send_mail(mail_subject, mail_message, 'test@gmail.com', {'mnyerro@yahoo.com'},
+                          fail_silently=False)
+                return redirect('/mercadona/register')
+        return render(request, 'preregister.html', {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
+
+    else:
+        return render(request, 'preregister.html')
+
+
 # Inscription administrateur
 def register(request):
     if request.method == 'POST':
         emailx = request.POST['email']
         passwordx = request.POST['password']
         verificationx = request.POST['verification']
-        verif_admins = VerifAdmin.objects.all()
-        # recherche du code de verification pour l'email de l'administrateur à créer
-        for i in range(len(verif_admins)):
-            if (verif_admins[i].email == emailx and verif_admins[i].verification == verificationx):
-                # userx = User.objects.create_user(email=emailx, password=passwordx)
-                # userx = UserManager()
-                userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
-                # suppression de l'enregistrememnt du code de verification et de l'email associée
-                verif_admins[i].delete()
-                # connexion
-                return redirect('/mercadona/connect')
+        verifadmins = VerifAdmin.objects.all()
+        for verifadmin in verifadmins:
+            if verifadmin.email == emailx:
+                if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
+                    userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
+                    # suppression de l'enregistrememnt du code de verification et de l'email associée
+                    verifadmin.delete()
+                    # connexion
+                    return redirect('/mercadona/connect')
         # Pas authentifié
         return render(request, 'register.html', {'errorVerif': "Email et/ou code de vérification erroné"})
     else:
@@ -110,7 +139,7 @@ def administration(request):
                 messages.add_message(request, messages.INFO, "Vous n' êtes pas administrateur")
                 return redirect("/mercadona/connect")
 
-    #L'utilisateur est un administrateur
+    # L'utilisateur est un administrateur
     context["vlogin"] = "logged"
     context.update(csrf(request))
     if request.method == 'POST':
@@ -151,7 +180,7 @@ def administration(request):
             else:
                 context['errorline'] = retour['msg']
                 return render(request, "administration.html", context)
-        #UPDATE CATEGORY
+        # UPDATE CATEGORY
         if btnx == "updcat":
             category_updated = Category.objects.filter(label=catx).first()
             updcat_id = category_updated.id
@@ -224,12 +253,12 @@ def administration(request):
         return render(request, "administration.html", context)
 
 
-#API ,images serveur IMAGEKIT.IO
+# API ,images serveur IMAGEKIT.IO
 def pictures(request):
     imagekit = ImageKit(
-        public_key='public_JqHpBljMCPzQEgTZ61Yz++1LfKs=',
-        private_key='private_LJ/YlRNoJAL8T7FAPZl/aNAw+qk=',
-        url_endpoint='https://ik.imagekit.io/kpvotazbj'
+        public_key=IMAGEKIT_PUBLIC_KEY,
+        private_key=IMAGEKIT_PRIVATE_KEY,
+        url_endpoint=IMAGEKIT_URL_ENDPOINT
     )
     listfiles = imagekit.list_files()
     response = {}
@@ -239,3 +268,7 @@ def pictures(request):
         response[key] = listfiles.list[i].name
         i += 1
     return JsonResponse(response)
+
+
+def page_non_trouvee(request, exception):
+    return render(request, '404.html', status=404)

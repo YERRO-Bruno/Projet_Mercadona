@@ -71,13 +71,16 @@ MERCADONA-admin
                 <div class="col-12 actions border border-primary mt-4" style="width: 12vw; height: 22vh">
                     <H5 class="text-center">Produits</H5>
                     <div>
-                        <button class="ml-1" style="width:140px" type="submit" value="new" name="BTN" >Ajouter</button>
+                        <button class="ml-1" style="width:140px" type="submit" value="new" name="BTN"
+                        id="button_addprod">Ajouter</button>
                     </div>
                     <div>
-                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="updat" name="BTN" >Modifier</button>
+                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="updat" name="BTN"
+                        id="button_updprod" >Modifier</button>
                     </div>
                     <div>
-                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="suppr" name="BTN" >Supprimer</button>
+                        <button class="mt-1 ml-1" style="width:140px" type="submit" value="suppr" name="BTN"
+                        id="button_delprod">Supprimer</button>
                     </div>
                     <div>
                         <button class="mt-1 ml-1" style="width:140px" type="submit" id="btnraz" name="action" value="raz">Effacer les champs</button>
@@ -89,9 +92,12 @@ MERCADONA-admin
                      <H5 class="">Categories</H5>
                      <div class="row">
                          <div class="m-0 col-5" >
-                             <button class="m-1" style="width:120px" value="addcat" type="submit" name="BTN">Ajouter</button>
-                             <button class="m-1" style="width:120px" value="updcat" type="submit" name="BTN">Modifier</button>
-                             <button class="m-1" style="width:120px" value="delcat" type="submit" name="BTN">Supprimer</button>
+                             <button class="m-1" style="width:120px" value="addcat" type="submit" name="BTN"
+                                     id="button_addcat">Ajouter</button>
+                             <button class="m-1" style="width:120px" value="updcat" type="submit" name="BTN"
+                                 id="button_updcat"> Modifier</button>
+                             <button class="m-1" style="width:120px" value="delcat" type="submit" name="BTN"
+                                 id="button_delcat2"> Supprimer</button>
                          </div>
                          <div class="m-0 col-5" >
 
@@ -140,7 +146,7 @@ MERCADONA-admin
         {#const listimage = JSON.parse("{{ listimg|safe|escapejs }}")#}
         const imgcur = "{{ fileimage|safe|escapejs }}"
         const desc = "{{ description }}"
-    </script>S
+    </script>
     <script src="/static/JS/index.js"></script>
     <script src="/static/JS/admin.js"></script>
 

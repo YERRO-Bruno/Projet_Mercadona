@@ -1,0 +1,42 @@
+{%  extends "base.html" %}
+
+{% block title %}
+MERCODONA
+{%  endblock %}
+
+{% block style %}
+    <link  rel="stylesheet" href="/static/CSS/index.css">
+    <link rel="stylesheet" href="/static/CSS/form.css">
+{%  endblock %}
+
+{%  block content %}
+    <div >
+        <h5 class="avert text-center">l' authentification est réservée à l'administration du site.
+            Si vous n'êtes pas administrateur du site,
+            <a href="/mercadona">veuillez fermer ce formulaire.</a>
+        </h5>
+        <br>
+        <h1 class="text-center">Pré-inscription</h1>
+        <h4 class="text-center">Il vous faut un code de verification que vous recevrez dans votre boite email</h4>
+        <h4 class="texterror text-center" style="color: red">{{ errorVerif }}</h4>
+        <form  class="justify-content-center" method="post">
+{#            <input type="hidden" name="csrfmiddlewaretoken" value="fUJ1pHaTryWbjUeW0B6vigvCZpi1L3LhSG2qQpupjhwIxRGjWcvM2xwy7oLVKw5i">#}
+            {% csrf_token %}
+            <br>
+            <div class="row justify-content-center">
+                <br>
+                <br>
+                <div class="col-4"></div>
+                <div class="col-1 text-right" style="font-size: 3vh">Email:</div>
+                <input class="col-2" type="email" name="email" maxlength="64" required=""
+                       id="id_email" style="height: 4vh; font-size: 3vh" value={{ email }}>
+                <div class="col-5"></div>
+                <div class="col-5"></div>
+                <button class="col-2" type="submit">Demander le code</button>
+                <div class="col-5"></div>
+
+            </div>
+        </form>
+    </div>
+{%  endblock %}
+

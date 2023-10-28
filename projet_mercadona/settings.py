@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
 from imagekitio import ImageKit
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv("SECRET_KEY")
-SECRET_KEY='3yab^m1su%906rf#mws)xt=1u#!xdj+l_ahhjer#$(k_=e7lb'
+SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
-print(DEBUG)
+# IMAGEKIT Pictures server access key
+IMAGEKIT_PUBLIC_KEY=config('IMAGEKIT_PUBLIC_KEY')
+IMAGEKIT_PRIVATE_KEY=config('IMAGEKIT_PRIVATE_KEY')
+IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
+#SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config("DEBUG")
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
@@ -140,3 +142,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Django Emails
+
+EMAIL_BACKEND = 'mercadona.mailing.CustomEmailBackend'
+DEBUG_EMAIL = 'mnyerro@yahoo.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'brunoyerro@gmail.com'
+EMAIL_HOST_PASSWORD = 'isti ynqp bvsa onvr'
+EMAIL_USE_TLS = True

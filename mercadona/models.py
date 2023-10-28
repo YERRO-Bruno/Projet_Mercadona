@@ -231,10 +231,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class VerifAdmin(models.Model):
     email = models.CharField(max_length=64, null=False, unique=True)
-    verification = models.CharField(max_length=128)
+    verification = models.CharField(null=True, max_length=128)
 
     def __str__(self):
         return self.email
 
     def getVerifAdmin(self):
         return {'id': self.id, 'email': self.email, 'verification': self.verification}
+
+    def update_verifadmin(self, verif_id, verif_email, verif_verification):
+        verifadmin = VerifAdmin.objects.filter(id=verif_id).first()
+        verifadmin.email = verif_email
+        verifadmin.verification = verif_verification
+        verifadmin.save()

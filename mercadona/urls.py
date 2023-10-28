@@ -11,6 +11,7 @@ router.register(r'products', views.ProductViewSet)
 urlpatterns = [
     path("", views.index, name="index"),
     path("api/", include(router.urls)),
+    path("preregister/", views.preregister, name="preregister"),
     path("register/", views.register, name="register"),
     path("connect/", views.connect, name="connect"),
     path("logout/", views.logoutUser, name="logout"),

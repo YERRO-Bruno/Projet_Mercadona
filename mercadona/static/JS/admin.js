@@ -20,11 +20,27 @@ document.addEventListener("DOMContentLoaded", function () {
     if (imgcur !== "" ) {
         fillcurrentpicture(imgcur)
     }
+    document.getElementById("id_prodid").value = "0"
 
     // remplissage du selecteur de categorie du formulaire
-    fillcurrentCategories()
+    fillcurrentCategories().then(r => {
+        // Gestion de l'absence de categories par l'ajout d'une categorie fictive
+        if (currentCategory.options.length === 0) {
+            const option = document.createElement("option");
+            option.textContent = "Categorie fictive";
+            currentCategory.appendChild(option);
+            document.getElementById("button_addprod").disabled = true;
+            document.getElementById("button_updprod").disabled = true;
+            document.getElementById("button_delprod").disabled = true;
+            document.getElementById("button_updcat").disabled = true;
+            document.getElementById("button_delcat").disabled = true;
+            alert("Il n'y a aucun categorie. Vous devez créer une catégorie!");
+        }
+    })
+
     //remplissage catalogue picrures (imagkit)
     fillpictures()
+
     //affichage catalogue produits
     productCatalog.style.display = ""
 
@@ -72,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // ecoute clic sur le bouton 'Choisir image' : efface le catalogue produits et affiche le catalogue photos
     btnimg = document.getElementById("imageInput");
     btnimg.addEventListener("click", function (e) {
-    e.preventDefault()
-    productCatalog.style.display = "none"
-    pictureCatalog.style.display = ""
+        e.preventDefault()
+        productCatalog.style.display = "none"
+        pictureCatalog.style.display = ""
     })
 
     // ecoute clic sur une photo du catalogue : affiche la photo dans le cadre suppérieur
@@ -107,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // document.getElementById("id_label").value = null
     })
 
-    //pour la page administration ecoute click sur champ recherche catalogue photos
+    //pour la page administration ecoute click sur champ recherche et annule recherche (X) catalogue photos
     picturesearchbutton.addEventListener('click', function () {
         fillpictures()
         })
@@ -116,12 +132,45 @@ document.addEventListener("DOMContentLoaded", function () {
         fillpictures()
         })
 
+    //Boite de dialogue pour alerter sur les dangers de supprimer une vategory liés à des produits
+    cancelcategorybutton = document.getElementById("button_delcat")
+    cancelcategorybutton.addEventListener('click', function (e) {
+        if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
+        } else {
+            e.preventDefault()
+        }
+    })
+
+
+
+
+    // function categoryhasproducts(deletecategory,e) {
+    //     var res = false
+    //     const result = await $.ajax({
+    //         url: '/mercadona/api/products',
+    //         method: "GET",
+    //         dataType: "json",
+    //         success: function (data) {
+    //             var i = 0;
+    //             data.forEach(product => {
+    //                 if (data[i].category.label === deletecategory.value) {
+    //                     res = true
+    //                 }
+    //                 i++
+    //             });
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error("Problème de récupération des catégories :", xhr, status, error);
+    //             alert("error")
+    //         }
+    //     })
+    //     return res
+    // }
 
     //FUNCTIONS
     // renseigne les options du Sélécteur de catégorie du formulaire
-    function fillcurrentCategories() {
-
-        $.ajax({
+    async function fillcurrentCategories() {
+        await $.ajax({
             url: '/mercadona/api/categories',
             method: "GET",
             dataType: "json",
@@ -133,13 +182,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     currentCategory.appendChild(option);
                     i++
                 });
-            document.getElementById("id_updcat").value = currentCategory.value
-            document.getElementById("id_delcat").textContent = currentCategory.value
             },
             error: function (xhr, status, error) {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
             }
         });
+        document.getElementById("id_updcat").value = currentCategory.value
+        document.getElementById("id_delcat").textContent = currentCategory.value
     }
 
     //recuperation du produit cliqué et traitement des champs de formulaire
