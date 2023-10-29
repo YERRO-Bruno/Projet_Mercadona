@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -14,18 +15,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const picturesearchbutton = document.getElementById("picture_search_button")
     const cancelpicturesearchbutton = document.getElementById("cancel_picture_search_button")
 
+
     document.getElementById("id_description").value=desc
     pictureCatalog.style.display = "none"
     productCatalog.style.display = "none"
     if (imgcur !== "" ) {
         fillcurrentpicture(imgcur)
     }
-    document.getElementById("id_prodid").value = "0"
 
     // remplissage du selecteur de categorie du formulaire
     fillcurrentCategories().then(r => {
         // Gestion de l'absence de categories par l'ajout d'une categorie fictive
         if (currentCategory.options.length === 0) {
+            alert("Il n'y a aucun categorie. Vous devez créer une catégorie!");
             const option = document.createElement("option");
             option.textContent = "Categorie fictive";
             currentCategory.appendChild(option);
@@ -34,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delprod").disabled = true;
             document.getElementById("button_updcat").disabled = true;
             document.getElementById("button_delcat").disabled = true;
-            alert("Il n'y a aucun categorie. Vous devez créer une catégorie!");
+
         }
     })
 
@@ -128,46 +130,55 @@ document.addEventListener("DOMContentLoaded", function () {
         fillpictures()
         })
     cancelpicturesearchbutton.addEventListener('click', function () {
-        picturesearch.value = "";
-        fillpictures()
+        // picturesearch.value = "";
+        // fillpictures()
+        alert("click")
         })
+    //ecoute clic sur lien fermeture catalogue photos
+    closephotosbutton = document.getElementById("closephotos")
+    closephotosbutton.addEventListener('click', function () {
+        productCatalog.style.display = ""
+        pictureCatalog.style.display = "none"
+    })
 
-    //Boite de dialogue pour alerter sur les dangers de supprimer une vategory liés à des produits
-    cancelcategorybutton = document.getElementById("button_delcat")
-    cancelcategorybutton.addEventListener('click', function (e) {
-        if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
-        } else {
-            e.preventDefault()
-        }
+    //ecoute clic bouton Ajouter un produit
+    addproductbutton.document.getElementById("button_addprod")
+    addproductbutton.addEventListener("click", function (e) {
+        document.getElementById("id_prodid").value = "0"
     })
 
 
 
+    cancelcategorybutton = document.getElementById("button_delcat")
+    cancelcategorybutton.addEventListener('click', function (e) {
+        deletecategory = document.getElementById("id_delcat")
+        e.preventDefault()
+        // async function searchnumberproductpercategory (deletecategory, e) {
+        fetch('/mercadona/api/products/')
+            .then(response => response.json())
+            .then(data => {
+                var res = 0
+                i=0
+                for (prod in data) {
+                    if (data[i]["category"]["label"] === deletecategory.innerHTML) {
+                        res++
+                    }
+                    i++
+                }
+                if (res>0) {
+                    if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
+                        document.getElementById("buttonValue").name = "BTN";
+                        e.target.form.submit();
+                    }
+                } else {
+                    document.getElementById("buttonValue").name = "BTN";
+                    e.target.form.submit();
+                }
+            })
+    })
 
-    // function categoryhasproducts(deletecategory,e) {
-    //     var res = false
-    //     const result = await $.ajax({
-    //         url: '/mercadona/api/products',
-    //         method: "GET",
-    //         dataType: "json",
-    //         success: function (data) {
-    //             var i = 0;
-    //             data.forEach(product => {
-    //                 if (data[i].category.label === deletecategory.value) {
-    //                     res = true
-    //                 }
-    //                 i++
-    //             });
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.error("Problème de récupération des catégories :", xhr, status, error);
-    //             alert("error")
-    //         }
-    //     })
-    //     return res
-    // }
 
-    //FUNCTIONS
+
     // renseigne les options du Sélécteur de catégorie du formulaire
     async function fillcurrentCategories() {
         await $.ajax({

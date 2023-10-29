@@ -200,6 +200,7 @@ class Product(models.Model):
             return {'obj': None, 'msg': DecimalException}
         except Exception:
             return {'obj': None, 'msg': Exception}
+
     def delete_product(self, product_id):
         try:
             product = Product.objects.filter(id=product_id).first()

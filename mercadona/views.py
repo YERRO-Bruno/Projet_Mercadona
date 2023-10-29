@@ -216,7 +216,7 @@ def administration(request):
                 retour = Product.create_product(Product(), labelx, descriptionx, catx, imgx, pricex, promox, beginx,
                                                 endx)
                 if retour['obj'] is not None:
-                    context = {}
+                    context['prodid']= retour['obj'].id
                     context["vlogin"] = "logged"
                     context.update(csrf(request))
                     messages.add_message(request, messages.INFO, "Produit ajoutéé")
