@@ -97,7 +97,7 @@ def register(request):
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
-                    verifadmin.delete()
+                    verifadmin.delete_verifadmin(VerifAdmin(),id(verifadmin))
                     # connexion
                     return redirect('/mercadona/connect')
         # Pas authentifié

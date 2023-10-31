@@ -1,5 +1,3 @@
-from django.core.wsgi import get_wsgi_application
-
 from django.test import TestCase
 from mercadona.models import Category
 
@@ -26,6 +24,11 @@ class CategoryModelTest(TestCase):
     def test_update_category_inexistent(self):
         self.category = Category.update_category(self=Category(), category_id=12345, label="NouveauLabel")['obj']
         self.assertIsNone(self.category)
+
+    def test_update_category_None(self):
+        self.category = Category.update_category(self=Category(), category_id=None, label="NouveauLabel")['obj']
+        self.assertIsNone(self.category)
+
 
     def test_delete_category(self):
         is_delete = Category.delete_category(self=Category(), category_id=self.category.id)['obj']
