@@ -1,12 +1,7 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projet_mercadona.settings")
-from datetime import datetime
-from django.db import models
-
-
-from django.core.management import call_command
-
+import re
 import string, decimal
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
@@ -15,10 +10,20 @@ from django.utils.translation import gettext_lazy as _
 from django.db import DatabaseError
 from decimal import Decimal, DecimalException
 from datetime import date
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projet_mercadona.settings")
 
+def est_email(val):
+    # Modèle d'expression régulière pour une adresse e-mail valide
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+'
+
+    # Utilisez la fonction match() pour vérifier si la chaîne correspond au modèle
+    if re.match(pattern, val):
+        return True
+    else:
+        return False
 
 class Category(models.Model):
-    label = models.CharField(max_length=64, null=False)
+    label = models.CharField(max_length=64, unique=True, null=False)
 
     # def __init__(self, label, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
@@ -84,7 +89,8 @@ class Product(models.Model):
     def __str__(self):
         return str(self.product_label)
 
-    def create_product(self, product_label: string, description: string, category_id, picture_file: string, price: decimal,
+    def create_product(self, product_label: string, description: string, category_label, picture_file: string,
+                       price: decimal,
                        reduction: decimal, begin_promo, end_promo):
         try:
             if product_label == "" or product_label is None:
@@ -93,36 +99,32 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "description inexistante"}
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
-            if category_id =="" or category_id is None:
+            if category_label == "" or category_label is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
-            categoryc = Category.objects.filter(label=category_id).first()
+            categoryc = Category.objects.filter(label=category_label).first()
             if price == "" or price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
             if not isinstance(Decimal(price), Decimal):
                 return {'obj': None, 'msg': "prix non décimal"}
             if reduction == "" or reduction is None:
-               reduction = 0
+                reduction = 0
             if reduction is not None:
                 if not isinstance(Decimal(reduction), Decimal):
                     return {'obj': None, 'msg': "réduction non décimal"}
             formdt = "%Y-%m-%d"
             if begin_promo == "" or begin_promo is None:
                 begin_promo = date(2000, 12, 25)
-            if begin_promo is not None:
-                begin_promo = datetime.strptime(str(begin_promo), formdt)
             if not isinstance(begin_promo, date):
-                begin_promo = date(2000, 12, 25)
+                return {'obj': None, 'msg': "date de début n'est pas une date"}
             if end_promo == "" or end_promo is None:
                 end_promo = date(2000, 12, 25)
-            if end_promo is not None:
-                begin_promo = datetime.strptime(str(end_promo), formdt)
             if not isinstance(end_promo, date):
-                end_promo = date(2000, 12, 25)
+                return {'obj': None, 'msg': "date de fin n'est pas une date"}
             product = Product()
             product.product_label = product_label
             product.description = description
             product.picture_file = picture_file
-            product.category_id = categoryc.id
+            product.category = categoryc
             product.price = price
             product.reduction = reduction
             product.begin_promo = begin_promo
@@ -134,16 +136,14 @@ class Product(models.Model):
         except decimal.DecimalException:
             return {'obj': None, 'msg': DecimalException}
 
-
-    def update_product(self, product_id, product_label: string, description: string, category, picture_file: string,
-                       price: decimal, reduction: decimal = 0,
-                       begin_promo=date(2000, 12, 25), end_promo=date(2000, 12, 25)):
+    def update_product(self, product_id, product_label: string, description: string, category_label, picture_file: string,
+                       price: decimal, reduction, begin_promo, end_promo):
         try:
-            print("date "+str(begin_promo))
+            print("date " + str(begin_promo))
             if product_id == "" or product_id is None:
-                return {'obj': None, 'msg': "product_id inexistant"}
+                return {'obj': None, 'msg': "produit non trouvé"}
             if not isinstance(Decimal(product_id), Decimal):
-                return {'obj': None, 'msg': "product_id non décimal"}
+                return {'obj': None, 'msg': "produit non trouvé"}
             product = Product.objects.filter(id=product_id).first()
             if product:
                 if product_label == "" or product_label is None:
@@ -154,7 +154,7 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "description inexistante"}
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
-            categoryc = Category.objects.filter(label=category).first()
+            categoryc = Category.objects.filter(label=category_label).first()
             if categoryc is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
             if price is None:
@@ -169,14 +169,10 @@ class Product(models.Model):
             formdt = "%Y-%m-%d"
             if begin_promo == "" or begin_promo is None:
                 begin_promo = date(2000, 12, 25)
-            if begin_promo is not None:
-                begin_promo = datetime.strptime(str(begin_promo), formdt)
             if not isinstance(begin_promo, date):
                 begin_promo = date(2000, 12, 25)
             if end_promo == "" or end_promo is None:
                 end_promo = date(2000, 12, 25)
-            if end_promo is not None:
-                end_promo = datetime.strptime(str(end_promo), formdt)
             if not isinstance(end_promo, date):
                 end_promo = date(2000, 12, 25)
             product = Product()
@@ -191,8 +187,6 @@ class Product(models.Model):
             product.end_promo = end_promo
             product.save()
             return {'obj': product, 'msg': "Updated"}
-            # else:
-            #     return {'obj': None, 'msg': "PB base de données"}
         except DatabaseError:
             return {'obj': None, 'msg': "PB base de données"}
 
@@ -203,15 +197,17 @@ class Product(models.Model):
 
     def delete_product(self, product_id):
         try:
+            if (product_id == "" or product_id is None):
+                return {'obj': False, 'msg': "Produit non trouvé"}
             product = Product.objects.filter(id=product_id).first()
             if product:
                 product.delete()
-                return {'obj': True, 'msg': "Produit supprimée"}
+                return {'obj': True, 'msg': "Produit supprimé"}
             else:
-                return {'obj': False, 'msg': "Produit non trouvée ou erreur base de donnée"}
+                return {'obj': False, 'msg': "Produit non trouvé"}
 
         except (Category.DoesNotExist, DatabaseError):
-            return {'obj': False, 'msg': "produit non trouvée ou erreur base de donnée"}
+            return {'obj': False, 'msg': "produit non trouvé"}
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -237,11 +233,40 @@ class VerifAdmin(models.Model):
     def __str__(self):
         return self.email
 
-    def getVerifAdmin(self):
-        return {'id': self.id, 'email': self.email, 'verification': self.verification}
 
-    def update_verifadmin(self, verif_id, verif_email, verif_verification):
-        verifadmin = VerifAdmin.objects.filter(id=verif_id).first()
-        verifadmin.email = verif_email
-        verifadmin.verification = verif_verification
-        verifadmin.save()
+
+    def create_verifadmin (self, verif_email):
+        if verif_email == "" or verif_email is None:
+            return {'obj': None, 'msg': "email inexistante"}
+        if not est_email(verif_email):
+            return {'obj': None, 'msg': "email non conforme"}
+        try:
+            verifadmin = VerifAdmin()
+            verifadmin.email = verif_email
+            verifadmin.verification = ""
+            verifadmin.save()
+            return {'obj': verifadmin, 'msg': "créé"}
+        except DatabaseError:
+            return {'obj': None, 'msg': "PB base de données"}
+
+    def update_verifadmin(self, email, verification):
+        if email == "" or email is None:
+            return {'obj': False, 'msg': "non trouvé"}
+        verifadmin = VerifAdmin.objects.filter(email=email).first()
+        if verifadmin:
+            verifadmin.verification = verification
+            verifadmin.save()
+            return {'obj': verifadmin, 'msg': "mise à jour effevtuée"}
+        else:
+            return {'obj': None, 'msg': "PB base de données"}
+
+    def delete_verifadmin(self, email):
+        if email == "" or email is None:
+            return {'obj': False, 'msg': "non trouvé"}
+        verifadmin = VerifAdmin.objects.filter(email=email).first()
+        if verifadmin:
+            verifadmin.delete()
+            return {'obj': True, 'msg': "suppression effevtuée"}
+        else:
+            return {'obj': False, 'msg': "PB base de données"}
+
