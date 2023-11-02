@@ -139,7 +139,7 @@ class Product(models.Model):
     def update_product(self, product_id, product_label: string, description: string, category_label, picture_file: string,
                        price: decimal, reduction, begin_promo, end_promo):
         try:
-            print("date " + str(begin_promo))
+            # print("date " + str(begin_promo))
             if product_id == "" or product_id is None:
                 return {'obj': None, 'msg': "produit non trouvé"}
             if not isinstance(Decimal(product_id), Decimal):
@@ -169,12 +169,15 @@ class Product(models.Model):
             formdt = "%Y-%m-%d"
             if begin_promo == "" or begin_promo is None:
                 begin_promo = date(2000, 12, 25)
+            # print(begin_promo)
             if not isinstance(begin_promo, date):
+
                 begin_promo = date(2000, 12, 25)
+            # print("pasdate")
             if end_promo == "" or end_promo is None:
                 end_promo = date(2000, 12, 25)
-            if not isinstance(end_promo, date):
-                end_promo = date(2000, 12, 25)
+            # if not isinstance(end_promo, date):
+            #     end_promo = date(2000, 12, 25)
             product = Product()
             product.id = product_id
             product.product_label = product_label

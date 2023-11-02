@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const picturesearchbutton = document.getElementById("picture_search_button")
     const cancelpicturesearchbutton = document.getElementById("cancel_picture_search_button")
 
-
     document.getElementById("id_description").value=desc
     pictureCatalog.style.display = "none"
     productCatalog.style.display = "none"
@@ -38,20 +37,26 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
+        currentCategory.value = currentcateg
     })
-
+    alert(currentcateg)
+    // currentCategory.value = currentcateg
+    // alert(${categ})
     //remplissage catalogue picrures (imagkit)
     fillpictures()
 
     //affichage catalogue produits
     productCatalog.style.display = ""
-
+    // currentCategory.value = currentcateg
     // ecoute clic sur selecteur category (dans le cadre administration)
     document.getElementById("id_category").addEventListener("change", function (e) {
         document.getElementById("id_updcat").value = currentCategory.value
         document.getElementById("id_delcat").textContent = currentCategory.value
 
     })
+
+    //mise a jour selecteur cetegoty zone administration
+
 
     //écoute evenement clic sur un produit
     const gallery = document.getElementById("product-list");
@@ -86,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fillcurrentproduct(id_prod)
 
     })
+
 
         // ecoute clic sur le bouton 'Choisir image' : efface le catalogue produits et affiche le catalogue photos
     btnimg = document.getElementById("imageInput");
@@ -130,9 +136,9 @@ document.addEventListener("DOMContentLoaded", function () {
         fillpictures()
         })
     cancelpicturesearchbutton.addEventListener('click', function () {
-        // picturesearch.value = "";
-        // fillpictures()
-        alert("click")
+         picturesearch.value = "";
+         fillpictures()
+
         })
     //ecoute clic sur lien fermeture catalogue photos
     closephotosbutton = document.getElementById("closephotos")
@@ -177,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     })
 
-
+    // FUNCTIONS
 
     // renseigne les options du Sélécteur de catégorie du formulaire
     async function fillcurrentCategories() {
@@ -216,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
                 document.getElementById("id_category").value = product.category.label
+                alert(product.category.label)
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
                 document.getElementById("id_begin").value = product.begin_promo
@@ -277,4 +284,5 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         imgnew = $(".imgcour").append(imghtml)
     }
+    currentCategory.value = currentcateg
 })
