@@ -1,1 +1,1 @@
-web : gunicorn Projet_mercadona.wsgi
+web: gunicorn Projet_mercadona.wsgi
