@@ -3,11 +3,11 @@
 {% block title %}
 MERCADONA
 {%  endblock %}
-
+{%  load static %}
 
 
 {% block style %}
-    <link rel="stylesheet" href="/static/CSS/index.css">
+    <link rel="stylesheet" href="{% static '/static/CSS/index.css'%}">
 {%  endblock %}
 
 {%  block content %}
