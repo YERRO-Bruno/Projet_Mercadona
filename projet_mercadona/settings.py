@@ -34,7 +34,7 @@ print(DEBUG)
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS')
+    ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
 print(ALLOWED_HOSTS)
 
 
