@@ -30,6 +30,7 @@ IMAGEKIT_PRIVATE_KEY=config('IMAGEKIT_PRIVATE_KEY')
 IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
 #SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
+print(DEBUG)
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
@@ -145,7 +146,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Django Emails
 
 EMAIL_BACKEND = 'mercadona.mailing.CustomEmailBackend'
-DEBUG_EMAIL = 'mnyerro@yahoo.com'
+DEBUG_EMAIL = 'brunoyerro@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'brunoyerro@gmail.com'
