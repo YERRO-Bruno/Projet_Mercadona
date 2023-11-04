@@ -17,7 +17,6 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -25,19 +24,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # IMAGEKIT Pictures server access key
-IMAGEKIT_PUBLIC_KEY=config('IMAGEKIT_PUBLIC_KEY')
-IMAGEKIT_PRIVATE_KEY=config('IMAGEKIT_PRIVATE_KEY')
-IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
-#SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
+IMAGEKIT_PUBLIC_KEY = config('IMAGEKIT_PUBLIC_KEY')
+IMAGEKIT_PRIVATE_KEY = config('IMAGEKIT_PRIVATE_KEY')
+IMAGEKIT_URL_ENDPOINT = config('IMAGEKIT_URL_ENDPOINT')
+# SECURITY WARNING: don't run with debug turned on in production!
+
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+if not IS_HEROKU_APP:
+    DEBUG = True
+
+# On Heroku, it's safe to use a wildcard for `ALLOWED_HOSTS``, since the Heroku router performs
+# validation of the Host header in the incoming HTTP request. On other platforms you may need
+# to list the expected hostnames explicitly to prevent HTTP Host header attacks. See:
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-ALLOWED_HOSTS
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = []
+
+# DEBUG = config("DEBUG")
 print(DEBUG)
-if DEBUG == 'True':
+if DEBUG == True:
     ALLOWED_HOSTS = ['127.0.0.1']
 else:
-    print(DEBUG)
     ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
 print(ALLOWED_HOSTS)
-
 
 # Application definition
 
@@ -83,7 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -121,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -132,7 +144,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
