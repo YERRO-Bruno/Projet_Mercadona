@@ -3,5 +3,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("mercadona/", include("mercadona.urls")),
+    path("mercadona/", include("staticfiles.JS.mercadona.urls")),
 ]

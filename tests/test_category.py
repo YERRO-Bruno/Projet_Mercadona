@@ -1,5 +1,5 @@
 from django.test import TestCase
-from mercadona.models import Category
+from staticfiles.JS.mercadona.models import Category
 
 class CategoryModelTest(TestCase):
     def setUp(self):

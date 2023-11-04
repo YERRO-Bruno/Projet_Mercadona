@@ -1,5 +1,5 @@
 from django.test import TestCase
-from mercadona.models import VerifAdmin
+from staticfiles.JS.mercadona.models import VerifAdmin
 
 
 class VerifAdminModelTest(TestCase):

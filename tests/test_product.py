@@ -1,5 +1,5 @@
 from django.test import TestCase
-from mercadona.models import Product, Category
+from staticfiles.JS.mercadona.models import Product, Category
 from datetime import date
 
 
