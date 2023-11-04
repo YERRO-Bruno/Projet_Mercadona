@@ -34,7 +34,7 @@ print(DEBUG)
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 
