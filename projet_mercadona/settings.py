@@ -31,10 +31,10 @@ IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
 #SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
 print(DEBUG)
-# if DEBUG:
-#     ALLOWED_HOSTS = []
-# else:
-ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
 print(ALLOWED_HOSTS)
 
 
