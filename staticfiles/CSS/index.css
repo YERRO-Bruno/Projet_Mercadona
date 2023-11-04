@@ -1,10 +1,10 @@
 
 .header {
-    background-color: red;
+    background-color: orange;
     height: 11vh;
 }
 .logo {
-    color: yellow;
+    color: cyan;
     height: 10vh;
     font-size: 5.5vh;
 }
@@ -21,9 +21,7 @@
 .category-filter {
     font-size: 3em;
 }
-.nodisplayindex {
-    display: none;
-}
+
 .img_product {
 height: 20vh;
 }

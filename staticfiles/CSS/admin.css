@@ -11,19 +11,17 @@
 }
 #currentproduct {
     width: 80%;
-    height: 32vh;
 }
 .changimage {
     font-weight: bolder;
 }
-.divimgcour {
-    position: relative;
-}
+<<<<<<< HEAD
+=======
 .btnfile {
     position: absolute;
-    height: 5vh;
-   top: 26vh;
+    bottom: 0;
 }
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 label {
     font-weight: bolder;
 }
@@ -32,7 +30,11 @@ label {
     width: 100%;
 }
 #id_description {
-    height: 14Svh;
+<<<<<<< HEAD
+    height: 10vh;
+=======
+    height: 20vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
     width: 100%;
 }
 #id_category {
@@ -40,20 +42,22 @@ label {
 
 }
 #id_price, #id_price_reduc {
-    height: 4vh;
+    height: 5vh;
     width: 100%;
 }
-#id_promo {
-    height: 4vh;
-    width: 50%;
+
+<<<<<<< HEAD
+#currentimg {
+=======
+#currentimg, #currentimage {
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
+    height: 24vh;
 }
-/*#currentimg, #currentimage {*/
-/*    height: 24vh;*/
-/*}*/
 .actions {
     font-size: 2vh;
     font-weight: bolder;
 }
+<<<<<<< HEAD
 .boximg {
     position: relative;
 }
@@ -63,7 +67,13 @@ label {
 }
 .boxcategory {
     width: 300%;
+;
+=======
+.boxcategory {
+
+;
 }
 .btncat {
     height: 4vh;
+>>>>>>> deb99e6569ee3246687f75e57b26335889c71f4b
 }
