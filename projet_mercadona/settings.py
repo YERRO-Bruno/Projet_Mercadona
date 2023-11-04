@@ -31,7 +31,7 @@ IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
 #SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
 print(DEBUG)
-if DEBUG == True
+if DEBUG == True:
     ALLOWED_HOSTS = []
 else:
     print(DEBUG)
