@@ -3,11 +3,11 @@
 {% block title %}
 MERCODONA
 {%  endblock %}
-
+{%  load static %}
 
 
 {% block style %}
-    <link  rel="stylesheet" href="/static/CSS/index.css"
+    <link  rel="stylesheet" href="{%  static 'CSS/index.css'%}">
 {%  endblock %}
 
 {%  block content %}
@@ -18,13 +18,13 @@ MERCODONA
     <br>
     <br>
     <div class="row justify-content-center">
-        <a href="/staticfiles/JS/mercadona" style="font-size: X-large">Catalogue des produits</a>
+        <a href="/mercadona" style="font-size: X-large">Catalogue des produits</a>
     </div>
     <br>
     <br>
     <br>
     <div class="row justify-content-center">
-        <a class="" href="/staticfiles/JS/mercadona/connect" style="font-size: x-large">Se connecter</a>
+        <a class="" href="/mercadona/connect" style="font-size: x-large">Se connecter</a>
     </div>
 
 

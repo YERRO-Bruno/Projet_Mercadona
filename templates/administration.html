@@ -5,8 +5,8 @@ MERCADONA-admin
 {%  endblock %}
 
 {% block style %}
-    <link  rel="stylesheet" href="/static/CSS/index.css">
-    <link rel="stylesheet" href="/static/CSS/admin.css">
+    <link  rel="stylesheet" href="{%  static 'CSS/index.css'%}">
+    <link rel="stylesheet" href="{%  static 'CSS/admin.css'%}">
 {%  endblock %}
 
 {%  block content %}
@@ -158,7 +158,7 @@ MERCADONA-admin
         const desc = "{{ description }}"
         const currentcateg ="{{ categ }}"
     </script>
-    <script src="/static/JS/index.js"></script>
-    <script src="/static/JS/admin.js"></script>
+    <script src="{% static 'JS/index.js'%}"></script>
+    <script src="{%  static 'JS/admin.js'%}"></script>
 
 {%  endblock %}

@@ -3,9 +3,10 @@
 {% block title %}
 MERCODONA
 {%  endblock %}
+{%  load static %}
 
 {% block style %}
-    <link  rel="stylesheet" href="/static/CSS/index.css">
+    <link  rel="stylesheet" href="{%  static 'CSS/index.css'%}">
     <link rel="stylesheet" href="/static/CSS/form.css">
 {%  endblock %}
 
