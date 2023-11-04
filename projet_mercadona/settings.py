@@ -34,7 +34,7 @@ print(DEBUG)
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = [mercadona972-1f5148293b49.herokuapp.com]
+    ALLOWED_HOSTS = ['0.0.0.0', 'mercadona972-1f5148293b49.herokuapp.com']
 
 
 
