@@ -65,16 +65,16 @@ def preregister(request):
                 crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
                 hash_verif = crypted_code.decode('utf-8')
                 verifadmin.verification = hash_verif
-                verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
+                verifadmin.update_verifadmin(verifadmin.email, hash_verif)
                 global recipient_email
                 recipient_email = emailx
                 mail_subject = "Code de verification pour l'inscription à MERCADONA"
                 mail_message = "bonjour, \n"
                 mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
                                               " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
-                mail_message = mail_message + "/n"
+                mail_message = mail_message + "\n"
                 mail_message = mail_message + original_code
-                mail_message = mail_message + "/n"
+                mail_message = mail_message + "\n"
                 mail_message = mail_message + "Cordialement"
                 send_mail(mail_subject, mail_message, 'test@gmail.com', {'mnyerro@yahoo.com'},
                           fail_silently=False)
@@ -97,7 +97,7 @@ def register(request):
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
-                    verifadmin.delete_verifadmin(VerifAdmin(),id(verifadmin))
+                    verifadmin.delete_verifadmin(verifadmin.email)
                     # connexion
                     return redirect('/mercadona/connect')
         # Pas authentifié
