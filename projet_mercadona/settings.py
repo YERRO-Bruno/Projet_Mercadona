@@ -31,8 +31,8 @@ IMAGEKIT_URL_ENDPOINT=config('IMAGEKIT_URL_ENDPOINT')
 #SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG")
 print(DEBUG)
-if DEBUG == True:
-    ALLOWED_HOSTS = []
+if DEBUG == 'True':
+    ALLOWED_HOSTS = ['127.0.0.1']
 else:
     print(DEBUG)
     ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
@@ -139,7 +139,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-os.path.join(BASE_DIR, "mercadona/static")
+os.path.join(BASE_DIR, "mercadona/../static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
