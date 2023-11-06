@@ -132,6 +132,7 @@ class Product(models.Model):
             product.save()
             return {'obj': product, 'msg': "Created"}
         except DatabaseError:
+
             return {'obj': None, 'msg': "error DATABASE"}
         except decimal.DecimalException:
             return {'obj': None, 'msg': DecimalException}
@@ -154,7 +155,7 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "description inexistante"}
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
-            categoryc = Category.objects.filter(label=category_label).first()
+            categoryc = Category.objects.filter(label=product.category.label).first()
             if categoryc is None:
                 return {'obj': None, 'msg': "Categorie introuvable"}
             if price is None:

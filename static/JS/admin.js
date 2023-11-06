@@ -1,4 +1,4 @@
-
+alert("admin")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -37,11 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
-        currentCategory.value = currentcateg
+        currentCategory.selectedIndex = 0
     })
-    alert(currentcateg)
-    // currentCategory.value = currentcateg
-    // alert(${categ})
+
     //remplissage catalogue picrures (imagkit)
     fillpictures()
 
@@ -195,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(category => {
                     const option = document.createElement("option");
+                    option.value = data[i].label
                     option.textContent = data[i].label;
                     currentCategory.appendChild(option);
                     i++
@@ -222,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
                 document.getElementById("id_category").value = product.category.label
-                alert(product.category.label)
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
                 document.getElementById("id_begin").value = product.begin_promo
@@ -270,7 +268,6 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             error: function (error) {
                 console.error("Erreur lors de la récupération des produits :", error);
-                alert("error")
             }
         })
     }
@@ -284,5 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         imgnew = $(".imgcour").append(imghtml)
     }
+
     currentCategory.value = currentcateg
+    alert(currentCategory.value)
 })

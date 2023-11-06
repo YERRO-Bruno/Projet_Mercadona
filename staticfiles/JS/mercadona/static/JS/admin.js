@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fillcurrentpicture(imgcur)
     }
 
+    // document.getElementById("id_prodid").value = 0
+
     // remplissage du selecteur de categorie du formulaire
     fillcurrentCategories().then(r => {
         // Gestion de l'absence de categories par l'ajout d'une categorie fictive
@@ -37,27 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
-        currentCategory.value = currentcateg
     })
-    alert(currentcateg)
-    // currentCategory.value = currentcateg
-    // alert(${categ})
+
+
     //remplissage catalogue picrures (imagkit)
     fillpictures()
 
     //affichage catalogue produits
     productCatalog.style.display = ""
-    // currentCategory.value = currentcateg
-    // ecoute clic sur selecteur category (dans le cadre administration)
-    document.getElementById("id_category").addEventListener("change", function (e) {
-        document.getElementById("id_updcat").value = currentCategory.value
-        document.getElementById("id_delcat").textContent = currentCategory.value
-
-    })
-
-    //mise a jour selecteur cetegoty zone administration
-
-
     //écoute evenement clic sur un produit
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
@@ -150,10 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //ecoute clic bouton Ajouter un produit
     addproductbutton.document.getElementById("button_addprod")
     addproductbutton.addEventListener("click", function (e) {
-        document.getElementById("id_prodid").value = "0"
+        // document.getElementById("id_prodid").value = "0"
     })
-
-
 
     cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener('click', function (e) {
@@ -196,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(category => {
                     const option = document.createElement("option");
                     option.textContent = data[i].label;
+                    // option.value = date[i].label
                     currentCategory.appendChild(option);
                     i++
                 });
@@ -204,8 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
             }
         });
-        document.getElementById("id_updcat").value = currentCategory.value
-        document.getElementById("id_delcat").textContent = currentCategory.value
     }
 
     //recuperation du produit cliqué et traitement des champs de formulaire
@@ -216,19 +202,31 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: "json",
             success: function (data) {
                 let product = data
+                alert(product.id)
+                if (idprod === undefined) {
+                    alert("id null")
+                }
                 document.getElementById("id_prodid").value = product.id
                 fillcurrentpicture(product.picture_file)
                 document.getElementById("id_fileimage").value = product.picture_file
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
                 document.getElementById("id_category").value = product.category.label
-                alert(product.category.label)
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
                 document.getElementById("id_begin").value = product.begin_promo
                 document.getElementById("id_end").value = product.end_promo
                 document.getElementById("imageInput").value = product.image
-                if (product.reduction == 0.00) {
+                for (i=0; i<currentCategory.options.length; i ++) {
+                    if (currentCategory.options[i].textContent === product.category.label) {
+                        currentCategory.options[i].selected = true
+                        alert("cat " + product.category.label)
+                        document.getElementById("id_updcat").value = product.category.label
+                        document.getElementById("id_delcat").textContent = product.category.label
+                    }
+                }
+
+                if (product.reduction === 0.00) {
                     document.getElementById("id_price_reduc").value = product.price
                 } else {
                     document.getElementById("id_price_reduc").value =
@@ -239,7 +237,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Erreur lors de la récupération des produits :", error);
             }
         })
+
     }
+
 
     // affichage des images imagekitio (démasquées pour choisir image
     function fillpictures () {
@@ -270,7 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             error: function (error) {
                 console.error("Erreur lors de la récupération des produits :", error);
-                alert("error")
             }
         })
     }
@@ -284,5 +283,5 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         imgnew = $(".imgcour").append(imghtml)
     }
-    currentCategory.value = currentcateg
+    // currentCategory.value = currentcateg
 })

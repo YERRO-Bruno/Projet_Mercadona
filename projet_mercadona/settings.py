@@ -105,10 +105,10 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "d43ghc8ldhtuhp",
-        "USER": "psonfltbvpjftx",
-        "PASSWORD": "0474b2280136144c4eb0b1b78daf13ff76f1b4a3dc49deca67a82e9a7900deeb",
-        "HOST": "ec2-52-215-68-14.eu-west-1.compute.amazonaws.com",
+        "NAME": "d5jm01t57ajlga",
+        "USER": "paekjoytqyiahg",
+        "PASSWORD": "1cfd5780e34abe848b92139b4e2b24a740c5313bd0ebc1c7f3cfc5295a89e191",
+        "HOST": "ec2-54-195-120-0.eu-west-1.compute.amazonaws.com",
         "PORT": "5432"
     }
 }

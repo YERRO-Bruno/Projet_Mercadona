@@ -1,4 +1,3 @@
-alert("index")
 document.addEventListener("DOMContentLoaded", function () {
     //selecteur de catégories
     const categoryFilter = document.getElementById("category-filter");
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //affichage d'un produit
     function fillOneProduct(prodid, prodcat, prodlab, prodimg, proddsc, prodprice, prodpromo) {
         if (categoryFilter.value === 'all' || prodcat === categoryFilter.value) {
-            // alert("fillonep roduct")
             if ((promochek.checked === false) || (promochek.checked === true && prodpromo === "promo")) {
                 if (productsearch === null || prodimg.startsWith(productsearch.value)) {
                     const colorprice = 'RED'
@@ -97,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: "json",
             success: function (data) {
                 data.forEach(product => {
-                    // alert("product")
                     prod_id = product.id
                     prod_cat = product.category.label;
                     prod_lab = product.product_label;
@@ -106,44 +103,37 @@ document.addEventListener("DOMContentLoaded", function () {
                     prod_price = product.price;
                     if (product.reduction === 0) {
                         prod_promo = "paspromo"
-                        // alert("pas promo")
                     } else {
 
-                    prod_price = product.price*(1-product.reduction/100);
-                    prod_price = Number(prod_price).toFixed(2);
-                    var dateDuJour = new Date();
-                    var date1 = new Date(product.begin_promo);
-                    var date2 = new Date(product.end_promo);
-                    var year = dateDuJour.toLocaleString("default", { year: "numeric" });
-                    var month = dateDuJour.toLocaleString("default", { month: "2-digit" });
-                    var day = dateDuJour.toLocaleString("default", { day: "2-digit" });
-                    var dujour = year + "-" + month + "-" + day;
+                        prod_price = product.price*(1-product.reduction/100);
+                        prod_price = Number(prod_price).toFixed(2);
+                        var dateDuJour = new Date();
+                        var date1 = new Date(product.begin_promo);
+                        var date2 = new Date(product.end_promo);
+                        var year = dateDuJour.toLocaleString("default", { year: "numeric" });
+                        var month = dateDuJour.toLocaleString("default", { month: "2-digit" });
+                        var day = dateDuJour.toLocaleString("default", { day: "2-digit" });
+                        var dujour = year + "-" + month + "-" + day;
 
-                    var year1 = date1.toLocaleString("default", { year: "numeric" });
-                    var month1 = date1.toLocaleString("default", { month: "2-digit" });
-                    var day1 = date1.toLocaleString("default", { day: "2-digit" });
-                    var dt1 = date1.getFullYear() + "-" + date1.getMonth() + "-" + date1.getDay();
+                        var year1 = date1.toLocaleString("default", { year: "numeric" });
+                        var month1 = date1.toLocaleString("default", { month: "2-digit" });
+                        var day1 = date1.toLocaleString("default", { day: "2-digit" });
+                        var dt1 = date1.getFullYear() + "-" + date1.getMonth() + "-" + date1.getDay();
 
-                    var year2 = date2.toLocaleString("default", { year: "numeric" });
-                    var month2 = date2.toLocaleString("default", { month: "2-digit" });
-                    var day2 = date2.toLocaleString("default", { day: "2-digit" });
-                    var dt2 = year2 + "-" + month2 + "-" + day2;
-                    if (product.reduction > 0) {
-                        // alert(dujour+" "+dt1+" "+dt2)
-                        // alert(dateDuJour.getMonth())S
+                        var year2 = date2.toLocaleString("default", { year: "numeric" });
+                        var month2 = date2.toLocaleString("default", { month: "2-digit" });
+                        var day2 = date2.toLocaleString("default", { day: "2-digit" });
+                        var dt2 = year2 + "-" + month2 + "-" + day2;
+                        if (product.reduction > 0) {
 
-                        if (dt1 <= dujour && dt2 >= dujour) {
-                            // alert("promo")
-                            prod_promo = "promo";
+                            if (dt1 <= dujour && dt2 >= dujour) {
+                                prod_promo = "promo";
+                            } else {
+                                prod_promo = "paspromo"
+                            }
                         } else {
-                            // alert("paspromo")
                             prod_promo = "paspromo"
                         }
-                    } else {
-                        prod_promo = "paspromo"
-                    }
-
-                            // alert(prod_promo)
                     }
                     fillOneProduct(prod_id, prod_cat, prod_lab , prod_img, prod_desc, prod_price, prod_promo);
                 })
@@ -155,9 +145,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //ecoute click sur la photo dans la zone administration
     pict = document.getElementById("id_image")
-    // pict.addEventListener('click', function () {
-    //     alert("click")
-    // })
 
 
     //A la modification du selecteur de catégorie
