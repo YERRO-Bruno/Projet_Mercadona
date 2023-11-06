@@ -48,7 +48,7 @@ else:
 # DEBUG = config("DEBUG")
 print(DEBUG)
 if DEBUG == True:
-    ALLOWED_HOSTS = ['127.0.0.1']
+    ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
 print(ALLOWED_HOSTS)
