@@ -45,13 +45,6 @@ if IS_HEROKU_APP:
 else:
     ALLOWED_HOSTS = []
 
-# DEBUG = config("DEBUG")
-
-if DEBUG == True:
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
-print(ALLOWED_HOSTS)
 
 # Application definition
 
