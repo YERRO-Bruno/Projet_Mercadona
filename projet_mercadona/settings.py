@@ -46,8 +46,8 @@ else:
     ALLOWED_HOSTS = []
 
 # DEBUG = config("DEBUG")
-print(DEBUG)
-if DEBUG == True:
+
+if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = ['mercadona972-1f5148293b49.herokuapp.com']
