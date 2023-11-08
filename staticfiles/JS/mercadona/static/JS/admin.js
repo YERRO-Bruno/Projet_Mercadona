@@ -1,4 +1,4 @@
-
+alert("admin3")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -202,10 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: "json",
             success: function (data) {
                 let product = data
-                alert(product.id)
-                if (idprod === undefined) {
-                    alert("id null")
-                }
                 document.getElementById("id_prodid").value = product.id
                 fillcurrentpicture(product.picture_file)
                 document.getElementById("id_fileimage").value = product.picture_file
@@ -220,7 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 for (i=0; i<currentCategory.options.length; i ++) {
                     if (currentCategory.options[i].textContent === product.category.label) {
                         currentCategory.options[i].selected = true
-                        alert("cat " + product.category.label)
                         document.getElementById("id_updcat").value = product.category.label
                         document.getElementById("id_delcat").textContent = product.category.label
                     }

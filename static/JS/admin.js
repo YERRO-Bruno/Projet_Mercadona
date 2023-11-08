@@ -1,5 +1,5 @@
-alert("admin")
 document.addEventListener("DOMContentLoaded", function () {
+    alert("admin2")
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
     //Checkbox 'que les promotions'
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fillcurrentpicture(imgcur)
     }
 
-    // remplissage du selecteur de categorie du formulaire
+// remplissage du selecteur de categorie du formulaire
     fillcurrentCategories().then(r => {
         // Gestion de l'absence de categories par l'ajout d'une categorie fictive
         if (currentCategory.options.length === 0) {
@@ -38,25 +38,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
         currentCategory.selectedIndex = 0
-    })
+     })
 
     //remplissage catalogue picrures (imagkit)
-    fillpictures()
-
-    //affichage catalogue produits
+   fillpictures()
+// affichage catalogue produits
     productCatalog.style.display = ""
-    // currentCategory.value = currentcateg
-    // ecoute clic sur selecteur category (dans le cadre administration)
+
+    //ecoute clic sur selecteur category (dans le cadre administration)
     document.getElementById("id_category").addEventListener("change", function (e) {
         document.getElementById("id_updcat").value = currentCategory.value
         document.getElementById("id_delcat").textContent = currentCategory.value
 
     })
+//mise a jour selecteur cetegoty zone administration
 
-    //mise a jour selecteur cetegoty zone administration
-
-
-    //écoute evenement clic sur un produit
+//    écoute evenement clic sur un produit
     const gallery = document.getElementById("product-list");
     gallery.addEventListener("click", function (event) {
         var imgfils = (document.getElementById("currentimg"))
@@ -112,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         pictureCatalog.style.display = "none"
     })
 
-    // ecoute clic sur le bouton 'Effacer les champs"
+//     // ecoute clic sur le bouton 'Effacer les champs"
     document.getElementById("btnraz").addEventListener("click", function (e) {
         e.preventDefault();
         document.getElementById("id_prodid").value = "0"
@@ -181,9 +178,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     })
 
-    // FUNCTIONS
-
-    // renseigne les options du Sélécteur de catégorie du formulaire
+//     // FUNCTIONS
+//
+//     // renseigne les options du Sélécteur de catégorie du formulaire
     async function fillcurrentCategories() {
         await $.ajax({
             url: '/mercadona/api/categories',
@@ -221,12 +218,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
                 document.getElementById("id_category").value = product.category.label
+                document.getElementById("id_updcat").value = product.category.label
+                document.getElementById("id_delcat").textContent = product.category.label
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
                 document.getElementById("id_begin").value = product.begin_promo
                 document.getElementById("id_end").value = product.end_promo
                 document.getElementById("imageInput").value = product.image
-                if (product.reduction == 0.00) {
+                if (product.reduction === 0.00) {
                     document.getElementById("id_price_reduc").value = product.price
                 } else {
                     document.getElementById("id_price_reduc").value =
@@ -283,5 +282,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     currentCategory.value = currentcateg
-    alert(currentCategory.value)
+
 })

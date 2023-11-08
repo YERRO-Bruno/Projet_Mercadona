@@ -1,4 +1,4 @@
-
+alert("adminX")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -130,9 +130,9 @@ document.addEventListener("DOMContentLoaded", function () {
         fillpictures()
         })
     cancelpicturesearchbutton.addEventListener('click', function () {
-        // picturesearch.value = "";
-        // fillpictures()
-        alert("click")
+        picturesearch.value = "";
+        fillpictures()
+
         })
     //ecoute clic sur lien fermeture catalogue photos
     closephotosbutton = document.getElementById("closephotos")
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
-
+    //ecoute click sur bouton supprimer catégory
     cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener('click', function (e) {
         deletecategory = document.getElementById("id_delcat")
@@ -221,11 +221,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_begin").value = product.begin_promo
                 document.getElementById("id_end").value = product.end_promo
                 document.getElementById("imageInput").value = product.image
-                if (product.reduction == 0.00) {
-                    document.getElementById("id_price_reduc").value = product.price
-                } else {
+                if (product.reduction > 0) {
                     document.getElementById("id_price_reduc").value =
-                        Math.round(product.price * (1 - product.reduction / 100) * 100) / 100
+                    Math.round(product.price * (1 - product.reduction / 100) * 100) / 100
                 }
             },
             error: function (error) {
@@ -263,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             error: function (error) {
                 console.error("Erreur lors de la récupération des produits :", error);
-                alert("error")
             }
         })
     }
