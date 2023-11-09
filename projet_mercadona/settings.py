@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from pathlib import Path
+
+from django_filters import rest_framework
 from imagekitio import ImageKit
 import os
 from decouple import config
@@ -45,10 +47,17 @@ if IS_HEROKU_APP:
 else:
     ALLOWED_HOSTS = []
 
-
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -56,8 +65,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'mercadona.apps.MercadonaConfig',
-    'mercadona'
-    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
