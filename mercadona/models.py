@@ -111,9 +111,9 @@ class Product(models.Model):
             if reduction is not None:
                 if not isinstance(Decimal(reduction), Decimal):
                     return {'obj': None, 'msg': "réduction non décimal"}
-            formdt = "%Y-%m-%d"
+            print(end_promo)
             if begin_promo == "" or begin_promo is None:
-                begin_promo = date(2000, 12, 25)
+                begin_promo = ""
             if not isinstance(begin_promo, date):
                 return {'obj': None, 'msg': "date de début n'est pas une date"}
             if end_promo == "" or end_promo is None:
