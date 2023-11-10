@@ -107,13 +107,14 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "d5jm01t57ajlga",
+        "NAME": os.getenv('NAME'),
         "USER": "paekjoytqyiahg",
         "PASSWORD": "1cfd5780e34abe848b92139b4e2b24a740c5313bd0ebc1c7f3cfc5295a89e191",
         "HOST": "ec2-54-195-120-0.eu-west-1.compute.amazonaws.com",
         "PORT": "5432"
     }
 }
+print(os.getenv('NAME'))
 # else:
 #     DATABASE = os.getenv("DATABASE_URL")
 
@@ -165,17 +166,6 @@ STORAGES = {
 # Don't store the original (un-hashed filename) version of static files, to reduce slug size:
 # https://whitenoise.readthedocs.io/en/latest/django.html#WHITENOISE_KEEP_ONLY_HASHED_FILES
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
-
-# STATIC_URL = os.path.join(BASE_DIR, "static/")
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
-# STATIC_URL = "static/"
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
