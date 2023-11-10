@@ -1,3 +1,5 @@
+import smtplib
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category, User, VerifAdmin
 from rest_framework import viewsets
@@ -11,7 +13,6 @@ from django.http import JsonResponse
 import bcrypt
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
-
 
 global recipient_emailcd
 
@@ -80,10 +81,12 @@ def preregister(request):
                 try:
                     send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', (emailx),
                               fail_silently=True)
-                except :
-                    print("error mail")
+                except smtplib.SMTPException as error:
+                    print('mail error')
+                    print(error)
                 return redirect('/mercadona/register')
-        return render(request, 'preregister.html', {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
+        return render(request, 'preregister.html',
+                      {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
 
     else:
         return render(request, 'preregister.html')
@@ -101,7 +104,7 @@ def register(request):
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
-                    verifadmin.delete_verifadmin(VerifAdmin(),id(verifadmin))
+                    verifadmin.delete_verifadmin(VerifAdmin(), id(verifadmin))
                     # connexion
                     return redirect('/mercadona/connect')
         # Pas authentifié
@@ -220,7 +223,7 @@ def administration(request):
                 retour = Product.create_product(Product(), labelx, descriptionx, catx, imgx, pricex, promox, beginx,
                                                 endx)
                 if retour['obj'] is not None:
-                    context['prodid']= retour['obj'].id
+                    context['prodid'] = retour['obj'].id
                     context["vlogin"] = "logged"
                     context.update(csrf(request))
                     messages.add_message(request, messages.INFO, "Produit ajoutéé")
