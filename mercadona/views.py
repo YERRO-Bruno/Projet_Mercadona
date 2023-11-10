@@ -67,17 +67,17 @@ def preregister(request):
                 hash_verif = crypted_code.decode('utf-8')
                 verifadmin.verification = hash_verif
                 verifadmin.update_verifadmin(verifadmin.email, hash_verif)
-                try:
-                    recipient_email = emailx
-                    mail_subject = "Code de verification pour l'inscription à MERCADONA"
-                    mail_message = "bonjour, \n"
-                    mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
-                                                  " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
-                    mail_message = mail_message + "/n"
-                    mail_message = mail_message + original_code
-                    mail_message = mail_message + "/n"
-                    mail_message = mail_message + "Cordialement"
 
+                recipient_email = emailx
+                mail_subject = "Code de verification pour l'inscription à MERCADONA"
+                mail_message = "bonjour, \n"
+                mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                                              " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
+                mail_message = mail_message + "/n"
+                mail_message = mail_message + original_code
+                mail_message = mail_message + "/n"
+                mail_message = mail_message + "Cordialement"
+                try:
                     send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', recipient_email,
                               fail_silently=False)
                 except :
