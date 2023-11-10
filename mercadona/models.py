@@ -169,8 +169,8 @@ class Product(models.Model):
             formdt = "%Y-%m-%d"
             if begin_promo == "" or begin_promo is None:
                 begin_promo = date(2000, 12, 25)
-            if not isinstance(begin_promo, date):
-                begin_promo = date(2000, 12, 25)
+            # if not isinstance(begin_promo, date):
+            #     begin_promo = date(2000, 12, 25)
             if end_promo == "" or end_promo is None:
                 end_promo = date(2000, 12, 25)
             # if not isinstance(end_promo, date):

@@ -103,17 +103,28 @@ WSGI_APPLICATION = "projet_mercadona.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# if DEBUG:
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": os.getenv('HOST'),
-        "PORT": "5432"
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": 'Mercadona_DB',
+            "USER": 'posgrest',
+            "PASSWORD": 'superposgres',
+            "HOST": '127.0.0.1',
+            "PORT": "5432"
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.getenv('NAME'),
+            "USER": os.getenv('USER'),
+            "PASSWORD": os.getenv('PASSWORD'),
+            "HOST": os.getenv('HOST'),
+            "PORT": "5432"
+        }
+    }
 # else:
 #     DATABASE = os.getenv("DATABASE_URL")
 
