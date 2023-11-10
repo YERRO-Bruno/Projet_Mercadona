@@ -105,7 +105,7 @@ def register(request):
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     print(emailx)
 
-                    # userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj']
+                    userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj']
                     # print(userx.role)
                     # if userx is not None:
                     #     print ('créé')
