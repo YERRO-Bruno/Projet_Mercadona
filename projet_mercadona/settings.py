@@ -171,7 +171,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django Emails
 
-EMAIL_BACKEND = mercadona.mailing.CustomEmailBackend
+EMAIL_BACKEND = 'mercadona.mailing.CustomEmailBackend'
 DEBUG_EMAIL = 'brunoyerro@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
