@@ -77,6 +77,7 @@ def preregister(request):
                 mail_message = mail_message + "\n"
                 mail_message = mail_message + original_code
                 mail_message = mail_message + "\n"
+                mail_message = mail_message + "\n"
                 mail_message = mail_message + "Cordialement"
 
                 try:
