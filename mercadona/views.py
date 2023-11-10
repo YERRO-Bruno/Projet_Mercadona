@@ -96,18 +96,16 @@ def preregister(request):
 # Inscription administrateur
 def register(request):
     if request.method == 'POST':
-        print("post")
         emailx = request.POST['email']
         passwordx = request.POST['password']
         verificationx = request.POST['verification']
         verifadmins = VerifAdmin.objects.all()
         for verifadmin in verifadmins:
             if verifadmin.email == emailx:
-
-
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     print(emailx)
-                    if User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj'] is not None:
+                    userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj']
+                    if userx is not None:
                         print ('créé')
                     else:
                         print('error creation')
