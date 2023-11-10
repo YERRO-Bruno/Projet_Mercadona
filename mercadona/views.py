@@ -66,7 +66,7 @@ def preregister(request):
                 crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
                 hash_verif = crypted_code.decode('utf-8')
                 verifadmin.verification = hash_verif
-                verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
+                # verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
                 # try:
                 #     recipient_email = emailx
                 #     mail_subject = "Code de verification pour l'inscription à MERCADONA"
