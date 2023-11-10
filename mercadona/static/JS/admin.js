@@ -1,4 +1,4 @@
-// alert("adminX")
+alert("adminX")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(category => {
                     const option = document.createElement("option");
                     option.textContent = data[i].label;
+                    option.value=data[i].label
                     currentCategory.appendChild(option);
                     i++
                 });
@@ -215,6 +216,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_fileimage").value = product.picture_file
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
+                document.getElementById("id_updcat").value = product.category.label
+                document.getElementById("id_delcat").value = product.category.label
                 document.getElementById("id_category").value = product.category.label
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
