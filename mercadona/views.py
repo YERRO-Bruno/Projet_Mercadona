@@ -79,7 +79,7 @@ def preregister(request):
                 mail_message = mail_message + "Cordialement"
                 try:
                     send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', emailx,
-                              fail_silently=False)
+                              fail_silently=True)
                 except :
                     print("error mail")
                 return redirect('/mercadona/register')
