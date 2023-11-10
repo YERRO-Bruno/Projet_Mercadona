@@ -14,5 +14,6 @@ class CustomEmailBackend(EmailBackend):
                     subject=message.subject,
                     to=', '.join(message.to)
                 )
-                message.to = message.to
+            message.to = message.to
+            print(message.to)
         return super(CustomEmailBackend, self).send_messages(messages)

@@ -77,8 +77,11 @@ def preregister(request):
                 mail_message = mail_message + original_code
                 mail_message = mail_message + "/n"
                 mail_message = mail_message + "Cordialement"
-                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
-                          fail_silently=False)
+                try:
+                    send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', emailx,
+                              fail_silently=False)
+                except :
+                    print("error mail")
                 return redirect('/mercadona/register')
         return render(request, 'preregister.html', {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
 
