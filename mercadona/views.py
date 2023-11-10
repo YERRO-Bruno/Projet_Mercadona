@@ -111,7 +111,11 @@ def register(request):
                     else:
                         print('error creation')
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
-                    verifadmin.delete_verifadmin(verifadmin.email)
+                    try:
+                        VerifAdmin.objects.delete_verifadmin(verifadmin.email)
+                    except Exception as error:
+                        print("erreur delete verifadmin")
+                        print(error)
                     # connexion
                     return redirect('/mercadona/connect')
         print("pas trouvé")
