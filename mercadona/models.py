@@ -117,7 +117,7 @@ class Product(models.Model):
             if not isinstance(begin_promo, date):
                 return {'obj': None, 'msg': "date de début n'est pas une date"}
             if end_promo == "" or end_promo is None:
-                end_promo = date(2000, 12, 25)
+                end_promo = date(2000, 12, 26)
             if not isinstance(end_promo, date):
                 return {'obj': None, 'msg': "date de fin n'est pas une date"}
             product = Product()
