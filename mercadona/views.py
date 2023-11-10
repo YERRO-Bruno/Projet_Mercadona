@@ -106,11 +106,15 @@ def register(request):
                 print(emailx)
 
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
-                    userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
+                    if User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj'] is not None:
+                        print ('créé')
+                    else:
+                        print('error creation')
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
                     verifadmin.delete_verifadmin(VerifAdmin(), id(verifadmin))
                     # connexion
                     return redirect('/mercadona/connect')
+        print("pas trouvé")
         # Pas authentifié
         return render(request, 'register.html', {'errorVerif': "Email et/ou code de vérification erroné"})
     else:
