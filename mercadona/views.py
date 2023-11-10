@@ -74,9 +74,9 @@ def preregister(request):
                 mail_message = "bonjour, \n"
                 mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
                                               " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
-                mail_message = mail_message + "/n"
+                mail_message = mail_message + "\n"
                 mail_message = mail_message + original_code
-                mail_message = mail_message + "/n"
+                mail_message = mail_message + "\n"
                 mail_message = mail_message + "Cordialement"
 
                 try:
@@ -96,12 +96,15 @@ def preregister(request):
 # Inscription administrateur
 def register(request):
     if request.method == 'POST':
+        print("post")
         emailx = request.POST['email']
         passwordx = request.POST['password']
         verificationx = request.POST['verification']
         verifadmins = VerifAdmin.objects.all()
         for verifadmin in verifadmins:
             if verifadmin.email == emailx:
+                print(emailx)
+
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
