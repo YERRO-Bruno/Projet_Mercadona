@@ -114,7 +114,6 @@ DATABASES = {
         "PORT": "5432"
     }
 }
-print(os.getenv('NAME'))
 # else:
 #     DATABASE = os.getenv("DATABASE_URL")
 
