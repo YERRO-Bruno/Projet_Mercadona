@@ -78,7 +78,7 @@ def preregister(request):
                 mail_message = mail_message + "/n"
                 mail_message = mail_message + "Cordialement"
                 try:
-                    send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', emailx,
+                    send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', (emailx),
                               fail_silently=True)
                 except :
                     print("error mail")
