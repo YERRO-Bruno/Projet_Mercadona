@@ -1,4 +1,3 @@
-alert("adminX")
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -246,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "GET",
             dataType: "json",
             success: function (data) {
-                alert("success")
                 var keys = Object.keys(data)
                 for (i = 0; i < keys.length; i++) {
                     rech = data[keys[i]]
@@ -265,7 +263,6 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             error: function (error) {
                 console.error("Erreur lors de la récupération des produits :", error);
-                alert(error.error())
             }
         })
     }
