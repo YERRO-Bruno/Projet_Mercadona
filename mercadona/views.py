@@ -112,7 +112,10 @@ def register(request):
                         print('error creation')
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
                     try:
-                        VerifAdmin.objects.delete_verifadmin(verifadmin.email)
+                        if VerifAdmin.objects.delete_verifadmin(verifadmin.email)['obj'] is not None:
+                            print("deleté")
+                        else:
+                            print ("pas deleté")
                     except Exception as error:
                         print("erreur delete verifadmin")
                         print(error)
