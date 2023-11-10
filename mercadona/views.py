@@ -105,11 +105,11 @@ def register(request):
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
                     print(emailx)
                     userx = User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj']
-                    print(userx.role)
-                    if userx is not None:
-                        print ('créé')
-                    else:
-                        print('error creation')
+                    # print(userx.role)
+                    # if userx is not None:
+                    #     print ('créé')
+                    # else:
+                    #     print('error creation')
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
                     # try:
                         # if VerifAdmin.objects.delete_verifadmin(emailx)['obj']:
