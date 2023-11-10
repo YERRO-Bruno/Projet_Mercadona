@@ -103,16 +103,17 @@ def register(request):
         verifadmins = VerifAdmin.objects.all()
         for verifadmin in verifadmins:
             if verifadmin.email == emailx:
-                print(emailx)
+
 
                 if bcrypt.checkpw(verificationx.encode('utf-8'), verifadmin.verification.encode('utf-8')):
+                    print(emailx)
                     if User.objects.create_user(email=emailx, password=passwordx, role="admin")['obj'] is not None:
                         print ('créé')
                     else:
                         print('error creation')
                     # suppression de l'enregistrememnt du code de verification et de l'email associée
                     try:
-                        if VerifAdmin.objects.delete_verifadmin(verifadmin.email)['obj'] is not None:
+                        if VerifAdmin.objects.delete_verifadmin(emailx)['obj']:
                             print("deleté")
                         else:
                             print ("pas deleté")
