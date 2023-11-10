@@ -81,7 +81,7 @@ def preregister(request):
                 try:
                     send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', (emailx),
                               fail_silently=True)
-                except smtplib.SMTPException as error:
+                except Exception as error:
                     print('mail error')
                     print(error)
                 return redirect('/mercadona/register')
