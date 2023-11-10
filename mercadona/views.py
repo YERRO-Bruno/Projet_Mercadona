@@ -61,27 +61,27 @@ def preregister(request):
         verifadmins = VerifAdmin.objects.all()
         for verifadmin in verifadmins:
             if verifadmin.email == emailx:
-                original_code = get_random_string(length=8)
-                salt = bcrypt.gensalt()
-                crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
-                hash_verif = crypted_code.decode('utf-8')
-                verifadmin.verification = hash_verif
-                verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
-                try:
-                    recipient_email = emailx
-                    mail_subject = "Code de verification pour l'inscription à MERCADONA"
-                    mail_message = "bonjour, \n"
-                    mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
-                                                  " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
-                    mail_message = mail_message + "/n"
-                    mail_message = mail_message + original_code
-                    mail_message = mail_message + "/n"
-                    mail_message = mail_message + "Cordialement"
-
-                    send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', recipient_email,
-                              fail_silently=False)
-                except :
-                    print("error mail")
+                # original_code = get_random_string(length=8)
+                # salt = bcrypt.gensalt()
+                # crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
+                # hash_verif = crypted_code.decode('utf-8')
+                # verifadmin.verification = hash_verif
+                # verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
+                # try:
+                #     recipient_email = emailx
+                #     mail_subject = "Code de verification pour l'inscription à MERCADONA"
+                #     mail_message = "bonjour, \n"
+                #     mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                #                                   " pour votre inscription au en tant qu'administrateur du site MERCADONA :\n"
+                #     mail_message = mail_message + "/n"
+                #     mail_message = mail_message + original_code
+                #     mail_message = mail_message + "/n"
+                #     mail_message = mail_message + "Cordialement"
+                #
+                #     send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', recipient_email,
+                #               fail_silently=False)
+                # except :
+                #     print("error mail")
                 return redirect('/mercadona/register')
         return render(request, 'preregister.html', {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
 
