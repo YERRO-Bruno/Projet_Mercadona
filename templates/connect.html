@@ -11,14 +11,14 @@ MERCODONA
 {%  endblock %}
 
 {%  block content %}
-
+    {% load static %}
     <div >
         <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
             Si vous n'êtes pas administrateur du site,
             <a href="/mercadona">veuillez fermer ce formulaire.</a>
             <br>
             Vous êtes administrateur et n'avez pas encore de compte,
-            <a href="/mercadona/register">Inscrivez-vous.</a>
+            <a href="/mercadona/preregister">Inscrivez-vous.</a>
         </h5>
         <h1 class="text-center">Inscription</h1>
         <h4 class="texterror text-center" style="color: red">{{ errorLogin }}</h4>

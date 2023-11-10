@@ -5,11 +5,14 @@ MERCODONA
 {%  endblock %}
 
 {% block style %}
-    <link  rel="stylesheet" href="/static/CSS/index.css">
-    <link rel="stylesheet" href="/static/CSS/form.css">
+    {% load static %}
+    <link  rel="stylesheet" href="{%  static 'CSS/index.css'%}">
+    <link rel="stylesheet" href="{%  static 'CSS/form.css'%}">
 {%  endblock %}
 
+
 {%  block content %}
+    {% load static %}
     <div >
         <h5 class="avert text-center">l' authentifiction est réservée à l'administration du site.
             Si vous n'êtes pas administrateur du site,
@@ -68,6 +71,8 @@ MERCODONA
             <p id="length" class="invalid col-3">Minimum <b>8 characters</b></p>
         </div>
     </div>
-    <script src="/static/JS/registerform.js"></script>
+    <script src="{%  static 'JS/registerform.js'%}"></script>
+    <link  rel="stylesheet" href="{%  static 'CSS/index.css'%}">
+    <link rel="stylesheet" href="{%  static 'CSS/connect.css'%}">
 {%  endblock %}
 
