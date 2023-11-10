@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description
                 document.getElementById("id_updcat").value = product.category.label
-                document.getElementById("id_delcat").value = product.category.label
+                document.getElementById("id_delcat").textContent = product.category.label
                 document.getElementById("id_category").value = product.category.label
                 document.getElementById("id_price").value = product.price
                 document.getElementById("id_promo").value = product.reduction
