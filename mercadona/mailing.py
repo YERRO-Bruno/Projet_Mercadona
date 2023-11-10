@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.mail.backends.smtp import EmailBackend
-from mercadona.views import recipient_email
-
-
+# from mercadona.views import recipient_email
+global recipient_email
+print(recipient_email)
 class CustomEmailBackend(EmailBackend):
 
     def send_messages(self, messages):
