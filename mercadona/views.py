@@ -12,6 +12,7 @@ import bcrypt
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 
+
 global recipient_emailcd
 
 
@@ -76,7 +77,7 @@ def preregister(request):
                 mail_message = mail_message + original_code
                 mail_message = mail_message + "/n"
                 mail_message = mail_message + "Cordialement"
-                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {'brunoyerro@outlook.fr'},
+                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
                           fail_silently=False)
                 return redirect('/mercadona/register')
         return render(request, 'preregister.html', {'errorVerif': "Email non habilité à l'administration", 'email': emailx})
