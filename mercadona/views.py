@@ -10,6 +10,7 @@ from django.contrib import messages
 from projet_mercadona.settings import IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL_ENDPOINT
 from imagekitio import ImageKit
 from django.http import JsonResponse
+import os
 import bcrypt
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -267,9 +268,9 @@ def administration(request):
 # API ,images serveur IMAGEKIT.IO
 def pictures(request):
     imagekit = ImageKit(
-        public_key=IMAGEKIT_PUBLIC_KEY,
-        private_key=IMAGEKIT_PRIVATE_KEY,
-        url_endpoint=IMAGEKIT_URL_ENDPOINT
+        public_key=os.getenv('IMAGEKIT_PUBLIC_KEY'),
+        private_key=os.getenv("IMAGEKIT_PRIVATE_KEY"),
+        url_endpoint=os.getenv('IMAGEKIT_URL_ENDPOINT')
     )
     listfiles = imagekit.list_files()
     response = {}

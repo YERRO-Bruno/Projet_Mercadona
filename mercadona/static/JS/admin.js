@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             error: function (error) {
                 console.error("Erreur lors de la récupération des produits :", error);
-                alert(error)
+                alert(error.error())
             }
         })
     }
