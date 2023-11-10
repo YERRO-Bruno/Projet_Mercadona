@@ -269,7 +269,7 @@ def administration(request):
 def pictures(request):
     imagekit = ImageKit(
         public_key=os.getenv('IMAGEKIT_PUBLIC_KEY'),
-        private_key=os.getenv("IMAGEKIT_PRIVATE_KEY"),
+        private_key=os.getenv('IMAGEKIT_PRIVATE_KEY'),
         url_endpoint=os.getenv('IMAGEKIT_URL_ENDPOINT')
     )
     listfiles = imagekit.list_files()
@@ -278,6 +278,7 @@ def pictures(request):
     for picture in listfiles.list:
         key = "img{}".format(i)
         response[key] = listfiles.list[i].name
+        print(listfiles.list[i].name)
         i += 1
     return JsonResponse(response)
 
