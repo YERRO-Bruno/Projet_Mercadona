@@ -67,7 +67,7 @@ def preregister(request):
                 hash_verif = crypted_code.decode('utf-8')
                 verifadmin.verification = hash_verif
                 verifadmin.update_verifadmin(verifadmin.id, verifadmin.email, hash_verif)
-                global recipient_email
+
                 recipient_email = emailx
                 mail_subject = "Code de verification pour l'inscription à MERCADONA"
                 mail_message = "bonjour, \n"
