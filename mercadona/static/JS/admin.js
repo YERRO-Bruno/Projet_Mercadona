@@ -263,10 +263,15 @@ document.addEventListener("DOMContentLoaded", function () {
  addcategorybutton.addEventListener('click', function (e) {
      alert('clic')
  })
-cancelcategorybutton.addEventListener("click", function (e) {
+ cancelcategorybutton = document.getElementById('button_delcat')
+ cancelcategorybutton.addEventListener('click', function (e) {
+     alert('clic')
+ })
+
+// cancelcategorybutton.addEventListener("click", function (e) {
     // deletecategory = document.getElementById("id_delcat")
-    alert('clic')
-    e.preventDefault()
+    // alert('clic')
+    // e.preventDefault()
     // alert('clic')
 
     // async function searchnumberproductpercategory (deletecategory, e) {
@@ -293,4 +298,4 @@ cancelcategorybutton.addEventListener("click", function (e) {
     //         }
     //     })
 
-})
+// })
