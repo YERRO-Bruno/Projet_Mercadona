@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener('click', function (e) {
         deletecategory = document.getElementById("id_delcat")
+        alert(deletecategory.value)
         e.preventDefault()
         // async function searchnumberproductpercategory (deletecategory, e) {
         fetch('/mercadona/api/products/')
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     i++
                 }
+                alert(res)
                 if (res>0) {
                     if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
                         document.getElementById("buttonValue").name = "BTN";
