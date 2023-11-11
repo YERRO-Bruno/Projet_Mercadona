@@ -38,11 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
-        currentCategory.value = currentcateg
+        // currentCategory.value = currentcateg
     })
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
+    alert(currentcateg)
     document.getElementById("id_updcat").value = currentcateg
     document.getElementById("id_delcat").textContent = currentcateg
 
@@ -204,8 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
             }
         });
-        document.getElementById("id_updcat").value = currentCategory.value
-        document.getElementById("id_delcat").textContent = currentCategory.value
+        // document.getElementById("id_updcat").value = currentCategory.value
+        // document.getElementById("id_delcat").textContent = currentCategory.value
     }
 
     //recuperation du produit cliqué et traitement des champs de formulaire
