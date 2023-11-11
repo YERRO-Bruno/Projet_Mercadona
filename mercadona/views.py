@@ -225,6 +225,7 @@ def administration(request):
                                      "vous devez 'Effacer les champs' avant de 'créer produit'")
                 return render(request, "administration.html", context)
             else:
+                print("cat "+catx)
                 retour = Product.create_product(Product(), labelx, descriptionx, catx, imgx, pricex, promox, beginx,
                                                 endx)
                 if retour['obj'] is not None:
