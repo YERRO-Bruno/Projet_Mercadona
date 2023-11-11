@@ -1,4 +1,4 @@
-alert('ADMIN0')
+// alert('ADMIN0')
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
-    document.getElementById('id_prodid').value = '0'
+
     //affichage catalogue produits
     productCatalog.style.display = ""
 
