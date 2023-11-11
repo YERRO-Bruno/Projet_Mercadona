@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //ecoute click sur bouton supprimer catégory
     cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener('click', function (e) {
-        deletecategory = document.getElementById("id_delcat")
+        // deletecategory = document.getElementById("id_delcat")
         e.preventDefault()
         alert('clic')
 
