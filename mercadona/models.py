@@ -100,7 +100,7 @@ class Product(models.Model):
             if picture_file == "" or picture_file is None:
                 return {'obj': None, 'msg': "image inexistante"}
             if category_label == "" or category_label is None:
-                return {'obj': None, 'msg': "Categorie introuvable :"+str(category_label)}
+                return {'obj': None, 'msg': "Categorie vide :"}
             categoryc = Category.objects.filter(label=category_label).first()
             if price == "" or price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
