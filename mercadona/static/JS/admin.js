@@ -269,11 +269,12 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch('/mercadona/api/products/')
             .then(response => response.json())
             .then(data => {
-                alert('OK')
+
                 var res = 0
                 i = 0
                 for (prod in data) {
                     if (data[i]["category"]["label"] === deletecategory.innerHTML) {
+                        alert('OK')
                         res++
                     }
                     i++
