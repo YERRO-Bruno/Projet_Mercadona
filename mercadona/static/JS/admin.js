@@ -154,38 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
-    //ecoute click sur bouton supprimer catégory
-    cancelcategorybutton.addEventListener("click", function (e) {
-        // deletecategory = document.getElementById("id_delcat")
-        alert('clic')
-        e.preventDefault()
-        // alert('clic')
-
-        // async function searchnumberproductpercategory (deletecategory, e) {
-        // fetch('/mercadona/api/products/')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         alert('OK')
-        //         var res = 0
-        //         i=0
-        //         for (prod in data) {
-        //             if (data[i]["category"]["label"] === deletecategory.innerHTML) {
-        //                 res++
-        //             }
-        //             i++
-        //         }
-        //         if (res>0) {
-        //             if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
-        //                 document.getElementById("buttonValue").name = "BTN";
-        //                 e.target.form.submit();
-        //             }
-        //         } else {
-        //             document.getElementById("buttonValue").name = "BTN";
-        //             e.target.form.submit();
-        //         }
-        //     })
-
-    })
 
 
 
@@ -288,4 +256,36 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         imgnew = $(".imgcour").append(imghtml)
     }
+})
+//ecoute click sur bouton supprimer catégory
+cancelcategorybutton.addEventListener("click", function (e) {
+    // deletecategory = document.getElementById("id_delcat")
+    alert('clic')
+    e.preventDefault()
+    // alert('clic')
+
+    // async function searchnumberproductpercategory (deletecategory, e) {
+    // fetch('/mercadona/api/products/')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         alert('OK')
+    //         var res = 0
+    //         i=0
+    //         for (prod in data) {
+    //             if (data[i]["category"]["label"] === deletecategory.innerHTML) {
+    //                 res++
+    //             }
+    //             i++
+    //         }
+    //         if (res>0) {
+    //             if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
+    //                 document.getElementById("buttonValue").name = "BTN";
+    //                 e.target.form.submit();
+    //             }
+    //         } else {
+    //             document.getElementById("buttonValue").name = "BTN";
+    //             e.target.form.submit();
+    //         }
+    //     })
+
 })
