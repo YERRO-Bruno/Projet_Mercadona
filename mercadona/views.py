@@ -239,14 +239,12 @@ def administration(request):
                     return render(request, "administration.html", context)
         # UPDATE PRODUCT
         if btnx == "updat":
-            print(beginx)
             retour = Product.update_product(Product(), idx, labelx, descriptionx, catx, imgx, pricex, promox,
                                             beginx, endx)
             if retour['obj'] is not None:
                 messages.add_message(request, messages.INFO, "Produit modifié")
                 return render(request, "administration.html", context)
             else:
-                print("erreurupdate")
                 context['errorline'] = retour['msg']
                 return render(request, "administration.html", context)
         # DELETE PRODUCT
@@ -278,7 +276,6 @@ def pictures(request):
     for picture in listfiles.list:
         key = "img{}".format(i)
         response[key] = listfiles.list[i].name
-        print(listfiles.list[i].name)
         i += 1
     return JsonResponse(response)
 
