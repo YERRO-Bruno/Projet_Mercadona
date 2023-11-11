@@ -176,7 +176,8 @@ def administration(request):
         context['fileimage'] = imgx
         context['categ'] = catx
         context['addcat'] = addcatx
-        context['uodcat'] = updcatx
+        context['updcat'] = updcatx
+        context['delcat'] = updcatx
         context['price'] = pricex
         context['promo'] = promox
         context['begin'] = beginx
