@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (imgcur !== "" ) {
         fillcurrentpicture(imgcur)
     }
-
+    currentCategory.value = currentcateg
     // remplissage du selecteur de categorie du formulaire
     fillcurrentCategories().then(r => {
         // Gestion de l'absence de categories par l'ajout d'une categorie fictive
