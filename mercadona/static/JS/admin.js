@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const picturesearch = document.getElementById("picture_search")
     const picturesearchbutton = document.getElementById("picture_search_button")
     const cancelpicturesearchbutton = document.getElementById("cancel_picture_search_button")
-
+    cancelcategorybutton = document.getElementById("button_delcat")
 
     document.getElementById("id_description").value=desc
     pictureCatalog.style.display = "none"
@@ -155,11 +155,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //ecoute click sur bouton supprimer catégory
-    cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener("click", function (e) {
         // deletecategory = document.getElementById("id_delcat")
         alert('clic')
-        // e.preventDefault()
+        e.preventDefault()
         // alert('clic')
 
         // async function searchnumberproductpercategory (deletecategory, e) {
