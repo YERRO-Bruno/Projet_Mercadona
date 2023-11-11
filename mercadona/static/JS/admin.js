@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(category => {
                     const option = document.createElement("option");
                     option.textContent = data[i].label;
-                    option.value=data[i].label
+                    option.value=data[i].label;
                     currentCategory.appendChild(option);
                     i++
                 });

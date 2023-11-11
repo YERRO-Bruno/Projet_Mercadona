@@ -220,7 +220,7 @@ def administration(request):
                 return render(request, "administration.html", context)
         # ADD PRODUCT
         if btnx == "new":
-            if idx != "0":
+            if idx != "":
                 messages.add_message(request, messages.INFO,
                                      "vous devez 'Effacer les champs' avant de 'créer produit'")
                 return render(request, "administration.html", context)
