@@ -264,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deletecategory = document.getElementById("id_delcat")
     alert('clic')
     e.preventDefault()
+    searchnumberproductpercategory()
     async function searchnumberproductpercategory (deletecategory, e) {
         fetch('/mercadona/api/products/')
             .then(response => response.json())
