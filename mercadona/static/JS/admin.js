@@ -1,4 +1,4 @@
-// alert('ADMIN0')
+ alert('ADMIN0')
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (imgcur !== "" ) {
         fillcurrentpicture(imgcur)
     }
-    currentCategory.value = currentcateg
+
     // remplissage du selecteur de categorie du formulaire
     fillcurrentCategories().then(r => {
         // Gestion de l'absence de categories par l'ajout d'une categorie fictive
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
+        currentCategory.value = currentcateg
     })
 
     //remplissage catalogue picrures (imagkit)
