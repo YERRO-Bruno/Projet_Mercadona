@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ecoute clic sur le bouton 'Effacer les champs"
     document.getElementById("btnraz").addEventListener("click", function (e) {
         e.preventDefault();
-        document.getElementById("errorline").value = ""
+        document.getElementById("errorline").textContent = ""
         document.getElementById("id_prodid").value = ""
         document.getElementById("id_fileimage").value = null
         document.getElementById("id_label").value = null
@@ -221,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let product = data
                 document.getElementById("id_prodid").value = product.id
                 fillcurrentpicture(product.picture_file)
+                document.getElementById("errorline").textContent = ""
                 document.getElementById("id_fileimage").value = product.picture_file
                 document.getElementById("id_label").value = product.product_label
                 document.getElementById("id_description").value = product.description

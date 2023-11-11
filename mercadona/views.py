@@ -238,7 +238,7 @@ def administration(request):
                     return render(request, "administration.html", context)
                 else:
                     context['errorline'] = retour['msg']
-                    messages.add_message(request, messages.INFO, "Produit NON ajoutéé")
+                    messages.add_message(request, messages.INFO, "Produit non ajouté")
                     return render(request, "administration.html", context)
         # UPDATE PRODUCT
         if btnx == "updat":
