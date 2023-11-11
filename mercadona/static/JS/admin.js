@@ -132,7 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelpicturesearchbutton.addEventListener('click', function () {
         picturesearch.value = "";
         fillpictures()
-
+        categoryFilter.value=document.getElementById('id_hcateg').value
+        alert(categoryFilter.value)
         })
     //ecoute clic sur lien fermeture catalogue photos
     closephotosbutton = document.getElementById("closephotos")
