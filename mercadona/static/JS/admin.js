@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
-
+    document.getElementById('id_prodid').value = '0'
     //affichage catalogue produits
     productCatalog.style.display = ""
 
