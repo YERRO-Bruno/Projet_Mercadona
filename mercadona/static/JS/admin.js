@@ -1,4 +1,3 @@
- alert('ADMIN0')
 document.addEventListener("DOMContentLoaded", function () {
     const categoryFilter = document.getElementById("category-filter");
     const productList = document.getElementById("product-list");
@@ -43,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
-    alert(currentcateg)
     document.getElementById("id_updcat").value = currentcateg
     document.getElementById("id_delcat").textContent = currentcateg
 
@@ -137,8 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelpicturesearchbutton.addEventListener('click', function () {
         picturesearch.value = "";
         fillpictures()
-        // categoryFilter.value=document.getElementById('id_hcateg').value
-        // alert(categoryFilter.value)
         })
     //ecoute clic sur lien fermeture catalogue photos
     closephotosbutton = document.getElementById("closephotos")
@@ -257,41 +253,17 @@ document.addEventListener("DOMContentLoaded", function () {
         imgnew = $(".imgcour").append(imghtml)
     }
 })
+
 //ecoute click sur bouton supprimer catégory
-
- cancelcategorybutton = document.getElementById('button_delcat')
- cancelcategorybutton.addEventListener('click', function (e) {
+cancelcategorybutton = document.getElementById('button_delcat')
+cancelcategorybutton.addEventListener('click', function (e) {
     deletecategory = document.getElementById("id_delcat")
-    alert('clic')
     e.preventDefault()
-    searchnumberproductpercategory()
-    async function searchnumberproductpercategory (deletecategory, e) {
-        fetch('/mercadona/api/products/')
-            .then(response => response.json())
-            .then(data => {
-
-                var res = 0
-                i = 0
-                for (prod in data) {
-                    if (data[i]["category"]["label"] === deletecategory.innerHTML) {
-                        alert('OK')
-                        res++
-                    }
-                    i++
-                }
-                alert(res)
-                if (res > 0) {
-                    if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
-                        document.getElementById("buttonValue").name = "BTN";
-                        e.target.form.submit();
-                    }
-                } else {
-                    document.getElementById("buttonValue").name = "BTN";
-                    e.target.form.submit();
-                }
-            })
+    if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
+        document.getElementById("buttonValue").name = "BTN";
+        e.target.form.submit();
     }
- })
+})
 
 // cancelcategorybutton.addEventListener("click", function (e) {
 
