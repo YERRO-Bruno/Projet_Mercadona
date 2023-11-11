@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ecoute clic sur le bouton 'Effacer les champs"
     document.getElementById("btnraz").addEventListener("click", function (e) {
         e.preventDefault();
-        document.getElementById("id_prodid").value = "0"
+        document.getElementById("id_prodid").value = ""
         document.getElementById("id_fileimage").value = null
         document.getElementById("id_label").value = null
         document.getElementById("id_description").value = null
