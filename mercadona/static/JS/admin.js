@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //ecoute clic bouton Ajouter un produit
     addproductbutton.document.getElementById("button_addprod")
     addproductbutton.addEventListener("click", function (e) {
-        document.getElementById("id_prodid").value = "0"
+        document.getElementById("id_prodid").value = ""
     })
 
 
@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cancelcategorybutton = document.getElementById("button_delcat")
     cancelcategorybutton.addEventListener('click', function (e) {
         // deletecategory = document.getElementById("id_delcat")
+        alert('clic')
         e.preventDefault()
         alert('clic')
 
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch('/mercadona/api/products/')
             .then(response => response.json())
             .then(data => {
+                alert('OK')
                 var res = 0
                 i=0
                 for (prod in data) {
