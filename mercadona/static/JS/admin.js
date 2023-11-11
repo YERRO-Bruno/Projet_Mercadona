@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
-    alert(currentCategory.value)
+    alert(currentcateg)
     //affichage catalogue produits
     productCatalog.style.display = ""
 
