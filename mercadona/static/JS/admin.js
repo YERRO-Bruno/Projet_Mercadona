@@ -262,6 +262,8 @@ cancelcategorybutton.addEventListener('click', function (e) {
     e.preventDefault()
     if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
         document.getElementById("buttonValue").name = "BTN";
+        document.getElementById("buttonValue").value = "delcat";
+
         e.target.form.submit();
     }
 })
