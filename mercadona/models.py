@@ -101,7 +101,8 @@ class Product(models.Model):
                 return {'obj': None, 'msg': "image inexistante"}
             if category_label == "" or category_label is None:
                 return {'obj': None, 'msg': "Categorie vide :"}
-            categoryc = Category.objects.filter(label=category_label).first()
+            else:
+                categoryc = Category.objects.filter(label=category_label).first()
             if price == "" or price is None:
                 return {'obj': None, 'msg': "prix inexistante"}
             if not isinstance(Decimal(price), Decimal):
