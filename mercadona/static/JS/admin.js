@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
-        // ecoute clic sur le bouton 'Choisir image' : efface le catalogue produits et affiche le catalogue photos
+        // ecoute clic sur le bouton 'image' : efface le catalogue produits et affiche le catalogue photos
     btnimg = document.getElementById("imageInput");
     btnimg.addEventListener("click", function (e) {
         e.preventDefault()
@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         picturesearch.value = "";
         fillpictures()
         })
+
     //ecoute clic sur lien fermeture catalogue photos
     closephotosbutton = document.getElementById("closephotos")
     closephotosbutton.addEventListener('click', function () {
