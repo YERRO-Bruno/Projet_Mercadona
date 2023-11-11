@@ -184,8 +184,9 @@ def administration(request):
         print(context)
         # ADD CATEGORY
         if btnx == "addcat":
-
+            print("addcat")
             retour = Category.create_category(Category(), label=addcatx)
+            print("créé")
             if retour['obj'] is not None:
                 context["vlogin"] = "logged"
                 context.update(csrf(request))
