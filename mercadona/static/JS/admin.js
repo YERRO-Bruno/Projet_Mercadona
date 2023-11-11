@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("button_delcat").disabled = true;
 
         }
-        // currentCategory.value = currentcateg
+        currentCategory.value = currentcateg
     })
 
     //remplissage catalogue picrures (imagkit)
