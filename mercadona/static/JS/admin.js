@@ -43,7 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //remplissage catalogue picrures (imagkit)
     fillpictures()
-    alert(currentcateg)
+    document.getElementById("id_updcat").value = currentcateg
+    document.getElementById("id_delcat").textContent = currentcateg
+
     //affichage catalogue produits
     productCatalog.style.display = ""
 
@@ -168,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     i++
                 }
-                alert(res)
                 if (res>0) {
                     if (confirm("voulez-vous supprimer la catégorie qui est peux-être liée à des produits?")) {
                         document.getElementById("buttonValue").name = "BTN";
