@@ -276,6 +276,7 @@ def pictures(request):
     for picture in listfiles.list:
         key = "img{}".format(i)
         response[key] = listfiles.list[i].name
+
         i += 1
     return JsonResponse(response)
 
