@@ -125,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("id_begin").value = null
         document.getElementById("id_end").value = null
         document.getElementById("currentimg").remove()
-        // document.getElementById("id_label").value = null
     })
 
     //pour la page administration ecoute click sur champ recherche et annule recherche (X) catalogue photos
@@ -174,8 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Problème de récupération des catégories :", xhr, status, error);
             }
         });
-        // document.getElementById("id_updcat").value = currentCategory.value
-        // document.getElementById("id_delcat").textContent = currentCategory.value
     }
 
     //recuperation du produit cliqué et traitement des champs de formulaire
